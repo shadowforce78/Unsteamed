@@ -1,15 +1,122 @@
 [
   {
     "id": 1,
-    "name": "Studio A",
-    "imageUrl": "http://example.com/studioA.jpg",
-    "gamesID": [1,2,3]
+    "name": "Pixel Forge",
+    "imageUrl": "http://example.com/studio_1.jpg",
+    "gamesID": [
+      12,
+      15,
+      27,
+      30,
+      34,
+      37
+    ]
   },
   {
     "id": 2,
-    "name": "Studio B",
-    "imageUrl": "http://example.com/studioB.jpg",
-    "gamesID": [4,5,6,2]
+    "name": "Quantum Games",
+    "imageUrl": "http://example.com/studio_2.jpg",
+    "gamesID": [
+      5,
+      23,
+      33
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Nebula Interactive",
+    "imageUrl": "http://example.com/studio_3.jpg",
+    "gamesID": [
+      2,
+      6,
+      8,
+      22,
+      36,
+      38,
+      42,
+      48
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Ironclad Studios",
+    "imageUrl": "http://example.com/studio_4.jpg",
+    "gamesID": [
+      25,
+      28,
+      31
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Dreamscape Digital",
+    "imageUrl": "http://example.com/studio_5.jpg",
+    "gamesID": [
+      11,
+      14,
+      26,
+      35
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Vortex Entertainment",
+    "imageUrl": "http://example.com/studio_6.jpg",
+    "gamesID": [
+      10,
+      13,
+      17,
+      19,
+      21,
+      40,
+      44,
+      45,
+      49
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Crystal Dynamics",
+    "imageUrl": "http://example.com/studio_7.jpg",
+    "gamesID": [
+      4,
+      7,
+      24,
+      47
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Horizon Labs",
+    "imageUrl": "http://example.com/studio_8.jpg",
+    "gamesID": [
+      1,
+      9,
+      16,
+      20,
+      41
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Titan creations",
+    "imageUrl": "http://example.com/studio_9.jpg",
+    "gamesID": [
+      18,
+      32,
+      43,
+      50
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Aurora Softworks",
+    "imageUrl": "http://example.com/studio_10.jpg",
+    "gamesID": [
+      3,
+      29,
+      39,
+      46
+    ]
   }
 ]
-
