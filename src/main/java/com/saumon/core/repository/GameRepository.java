@@ -1,31 +1,40 @@
 package com.saumon.core.repository;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.saumon.core.model.Game;
 
-import java.sql.Array;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class GameRepository {
-    private List games = new ArrayList<>();
-
-    Date randomDate = new Date();
-    Date randomDate2 = new Date();
+    private List<Game> games = new ArrayList<>();
+    private final String DATA_FILE = "data/games.json";
 
     public GameRepository(){
-        games.add(new Game(1, "Game 1", 59.99, null, "Description of Game 1",new Date(), "http://example.com/game1.jpg", true, "Studio A", false));
-        games.add(new Game(2, "Game 2", 39.99, null, "Description of Game 2",new Date(), "http://example.com/game2.jpg", false, "Studio B", true));
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            File file = new File(DATA_FILE);
+            if (file.exists()) {
+                games = mapper.readValue(file, new TypeReference<List<Game>>(){});
+            } else {
+                System.out.println("Data file not found: " + DATA_FILE);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public List getAllGames() {
+    public List<Game> getAllGames() {
         return games;
     }
 
     public Game getGameById(int id) {
-        for (Object game : games) {
-            if (((Game) game).getId() == id) {
-                return (Game) game;
+        for (Game game : games) {
+            if (game.getId() == id) {
+                return game;
             }
         }
         return null;

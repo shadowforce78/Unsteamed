@@ -1,20 +1,24 @@
 package com.saumon.core.model;
 
-import java.lang.reflect.Array;
+import java.util.List;
 import java.util.Date;
 
 public class Game {
     private int id;
     private String name;
     private Double price;
-    private Array genres;
+    private List<String> genres;
     private String description;
     private Date releaseDate;
     private String imageUrl;
     private Boolean isMultiplayer;
     private String studioID;
     private Boolean subscription;
-    public Game(int id, String name, Double price, Array genres, String description,Date releaseDate,String imageUrl, Boolean isMultiplayer, String studioID, Boolean subscription) {
+
+    public Game() {
+    }
+
+    public Game(int id, String name, Double price, List<String> genres, String description,Date releaseDate,String imageUrl, Boolean isMultiplayer, String studioID, Boolean subscription) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -39,7 +43,7 @@ public class Game {
         return price;
     }
 
-    public Array getGenres() {
+    public List<String> getGenres() {
         return genres;
     }
 

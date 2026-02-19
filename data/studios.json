@@ -1,0 +1,15 @@
+[
+  {
+    "id": 1,
+    "name": "Studio A",
+    "imageUrl": "http://example.com/studioA.jpg",
+    "gamesID": [1,2,3]
+  },
+  {
+    "id": 2,
+    "name": "Studio B",
+    "imageUrl": "http://example.com/studioB.jpg",
+    "gamesID": [4,5,6,2]
+  }
+]
+
