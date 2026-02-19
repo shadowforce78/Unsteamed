@@ -4,14 +4,18 @@ import com.saumon.core.model.Game;
 
 import java.sql.Array;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class GameRepository {
     private List games = new ArrayList<>();
 
+    Date randomDate = new Date();
+    Date randomDate2 = new Date();
+
     public GameRepository(){
-        games.add(new Game(1, "Game 1", 59.99, null, "Description of Game 1", "http://example.com/game1.jpg", true, "Studio A", false));
-        games.add(new Game(2, "Game 2", 39.99, null, "Description of Game 2", "http://example.com/game2.jpg", false, "Studio B", true));
+        games.add(new Game(1, "Game 1", 59.99, null, "Description of Game 1",new Date(), "http://example.com/game1.jpg", true, "Studio A", false));
+        games.add(new Game(2, "Game 2", 39.99, null, "Description of Game 2",new Date(), "http://example.com/game2.jpg", false, "Studio B", true));
     }
 
     public List getAllGames() {

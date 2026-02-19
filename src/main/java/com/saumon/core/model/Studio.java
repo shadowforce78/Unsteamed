@@ -7,4 +7,5 @@ public class Studio {
     private String name;
     private String imageUrl;
     private Array games;
+
 }
