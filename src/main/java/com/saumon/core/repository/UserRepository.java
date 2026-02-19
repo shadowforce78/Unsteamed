@@ -39,4 +39,33 @@ public class UserRepository {
         }
         return null;
     }
+
+    public void registerUser(User newUser) {
+        int newId = users.size() + 1; // Simple ID generation strategy
+        newUser.setId(newId);
+        users.add(newUser);
+        saveUsers();
+    }
+
+    public void saveUsers() {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            mapper.writerWithDefaultPrettyPrinter().writeValue(new File(DATA_FILE), users);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (User user : users) {
+            sb.append("ID: ").append(user.getId())
+              .append(", Username: ").append(user.getUsername())
+              .append(", Email: ").append(user.getEmail())
+              .append(", Registration Date: ").append(user.getRegistrationDate())
+              .append("\n");
+        }
+        return sb.toString();
+    }
+
 }
