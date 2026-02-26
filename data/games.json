@@ -1,740 +1,122 @@
 [
   {
     "id": 1,
-    "name": "Final Manager 5",
-    "price": 62.05,
-    "genres": [
-      "Adventure"
-    ],
-    "description": "A gripping story of survival and redemption.",
-    "releaseDate": 1639670904831,
-    "imageUrl": "http://example.com/game_1.jpg",
-    "isMultiplayer": true,
-    "studioID": "Horizon Labs",
-    "subscription": true
+    "name": "The Witcher 3: Wild Hunt",
+    "price": 39.99,
+    "genres": ["RPG", "Adventure"],
+    "description": "Devenez un chasseur de monstres professionnel dans une aventure épique en monde ouvert.",
+    "releaseDate": 1432072800000,
+    "imageUrl": "http://example.com/witcher3.jpg",
+    "isMultiplayer": false,
+    "studioID": "CD Projekt Red",
+    "subscription": false
   },
   {
     "id": 2,
-    "name": "Legend of Combat 8",
-    "price": 55.87,
-    "genres": [
-      "Adventure",
-      "Action"
-    ],
-    "description": "An epic journey through time.",
-    "releaseDate": 1728745143850,
-    "imageUrl": "http://example.com/game_2.jpg",
-    "isMultiplayer": false,
-    "studioID": "Nebula Interactive",
-    "subscription": true
+    "name": "Elden Ring",
+    "price": 59.99,
+    "genres": ["Action", "RPG"],
+    "description": "Levez-vous, Sans-éclat, et laissez la grâce guider vos pas dans l'Entre-terre.",
+    "releaseDate": 1645743600000,
+    "imageUrl": "http://example.com/elden_ring.jpg",
+    "isMultiplayer": true,
+    "studioID": "FromSoftware",
+    "subscription": false
   },
   {
     "id": 3,
-    "name": "Super Quest 5",
-    "price": 47.79,
-    "genres": [
-      "Adventure"
-    ],
-    "description": "Build and manage your dream empire.",
-    "releaseDate": 1769196296839,
-    "imageUrl": "http://example.com/game_3.jpg",
+    "name": "The Last of Us Part II",
+    "price": 39.99,
+    "genres": ["Action", "Adventure"],
+    "description": "Une quête de vengeance brutale et émotionnelle à travers une Amérique post-pandémique.",
+    "releaseDate": 1592517600000,
+    "imageUrl": "http://example.com/tlou2.jpg",
     "isMultiplayer": false,
-    "studioID": "Aurora Softworks",
-    "subscription": true
+    "studioID": "Naughty Dog",
+    "subscription": false
   },
   {
     "id": 4,
-    "name": "Star Tycoon 7",
-    "price": 65.98,
-    "genres": [
-      "Action"
-    ],
-    "description": "Uncover the secrets of the ancient world.",
-    "releaseDate": 1674272078099,
-    "imageUrl": "http://example.com/game_4.jpg",
+    "name": "God of War Ragnarök",
+    "price": 69.99,
+    "genres": ["Action", "Adventure"],
+    "description": "Kratos et Atreus doivent explorer les neuf royaumes pour trouver des réponses avant le Ragnarök.",
+    "releaseDate": 1667948400000,
+    "imageUrl": "http://example.com/gow_ragnarok.jpg",
     "isMultiplayer": false,
-    "studioID": "Crystal Dynamics",
-    "subscription": true
+    "studioID": "Santa Monica Studio",
+    "subscription": false
   },
   {
     "id": 5,
-    "name": "Ultimate Combat 6",
-    "price": 33.18,
-    "genres": [
-      "Fighting",
-      "Shooter",
-      "Puzzle"
-    ],
-    "description": "Battle against formidable foes.",
-    "releaseDate": 1734827773429,
-    "imageUrl": "http://example.com/game_5.jpg",
-    "isMultiplayer": false,
-    "studioID": "Quantum Games",
+    "name": "Grand Theft Auto V",
+    "price": 29.99,
+    "genres": ["Action", "Open World"],
+    "description": "Vivez les vies entremêlées de trois criminels très différents dans la ville de Los Santos.",
+    "releaseDate": 1379368800000,
+    "imageUrl": "http://example.com/gtav.jpg",
+    "isMultiplayer": true,
+    "studioID": "Rockstar Games",
     "subscription": false
   },
   {
     "id": 6,
-    "name": "Battle Quest 4",
-    "price": 14.46,
-    "genres": [
-      "Action",
-      "Racing",
-      "Strategy"
-    ],
-    "description": "Battle against formidable foes.",
-    "releaseDate": 1735397473345,
-    "imageUrl": "http://example.com/game_6.jpg",
-    "isMultiplayer": false,
-    "studioID": "Nebula Interactive",
+    "name": "Red Dead Redemption 2",
+    "price": 59.99,
+    "genres": ["Action", "Adventure"],
+    "description": "Le récit épique de la vie dans l'Amérique impitoyable à l'aube de l'ère moderne.",
+    "releaseDate": 1540504800000,
+    "imageUrl": "http://example.com/rdr2.jpg",
+    "isMultiplayer": true,
+    "studioID": "Rockstar Games",
     "subscription": false
   },
   {
     "id": 7,
-    "name": "Super Simulator 9",
-    "price": 40.79,
-    "genres": [
-      "Shooter"
-    ],
-    "description": "An epic journey through time.",
-    "releaseDate": 1696202696978,
-    "imageUrl": "http://example.com/game_7.jpg",
+    "name": "Marvel's Spider-Man 2",
+    "price": 79.99,
+    "genres": ["Action", "Adventure"],
+    "description": "Incarnez Peter Parker et Miles Morales pour affronter le redoutable Venom à New York.",
+    "releaseDate": 1697752800000,
+    "imageUrl": "http://example.com/spiderman2.jpg",
     "isMultiplayer": false,
-    "studioID": "Crystal Dynamics",
+    "studioID": "Insomniac Games",
     "subscription": false
   },
   {
     "id": 8,
-    "name": "World of Combat 5",
-    "price": 20.92,
-    "genres": [
-      "Strategy",
-      "Action"
-    ],
-    "description": "Experience the ultimate simulation.",
-    "releaseDate": 1628638434139,
-    "imageUrl": "http://example.com/game_8.jpg",
+    "name": "Hades",
+    "price": 24.50,
+    "genres": ["Roguelike", "Action"],
+    "description": "Défiez le dieu des morts et frayez-vous un chemin hors des Enfers.",
+    "releaseDate": 1600293600000,
+    "imageUrl": "http://example.com/hades.jpg",
     "isMultiplayer": false,
-    "studioID": "Nebula Interactive",
+    "studioID": "Supergiant Games",
     "subscription": false
   },
   {
     "id": 9,
-    "name": "Rise of Simulator 5",
-    "price": 42.84,
-    "genres": [
-      "Racing",
-      "Puzzle"
-    ],
-    "description": "Uncover the secrets of the ancient world.",
-    "releaseDate": 1666624850121,
-    "imageUrl": "http://example.com/game_9.jpg",
+    "name": "Cyberpunk 2077",
+    "price": 49.99,
+    "genres": ["RPG", "FPS"],
+    "description": "Une aventure en monde ouvert dans la mégalopole Night City obsédée par le pouvoir.",
+    "releaseDate": 1607554800000,
+    "imageUrl": "http://example.com/cyberpunk.jpg",
     "isMultiplayer": false,
-    "studioID": "Horizon Labs",
-    "subscription": true
+    "studioID": "CD Projekt Red",
+    "subscription": false
   },
   {
     "id": 10,
-    "name": "Final Tycoon 5",
-    "price": 15.4,
-    "genres": [
-      "Simulation"
-    ],
-    "description": "Build and manage your dream empire.",
-    "releaseDate": 1736081728303,
-    "imageUrl": "http://example.com/game_10.jpg",
-    "isMultiplayer": false,
-    "studioID": "Vortex Entertainment",
-    "subscription": true
-  },
-  {
-    "id": 11,
-    "name": "Legend of Heroes 1",
-    "price": 55.41,
-    "genres": [
-      "Platformer"
-    ],
-    "description": "Uncover the secrets of the ancient world.",
-    "releaseDate": 1676538624236,
-    "imageUrl": "http://example.com/game_11.jpg",
+    "name": "Forza Horizon 5",
+    "price": 59.99,
+    "genres": ["Racing"],
+    "description": "Explorez les paysages vibrants du Mexique au volant de centaines de voitures exceptionnelles.",
+    "releaseDate": 1636412400000,
+    "imageUrl": "http://example.com/forza5.jpg",
     "isMultiplayer": true,
-    "studioID": "Dreamscape Digital",
-    "subscription": true
-  },
-  {
-    "id": 12,
-    "name": "Mega Heroes 3",
-    "price": 10.57,
-    "genres": [
-      "Sports",
-      "Action"
-    ],
-    "description": "An epic journey through time.",
-    "releaseDate": 1734801519290,
-    "imageUrl": "http://example.com/game_12.jpg",
-    "isMultiplayer": true,
-    "studioID": "Pixel Forge",
-    "subscription": true
-  },
-  {
-    "id": 13,
-    "name": "Mega Combat 3",
-    "price": 13.57,
-    "genres": [
-      "Puzzle"
-    ],
-    "description": "Uncover the secrets of the ancient world.",
-    "releaseDate": 1738895046405,
-    "imageUrl": "http://example.com/game_13.jpg",
-    "isMultiplayer": false,
-    "studioID": "Vortex Entertainment",
-    "subscription": false
-  },
-  {
-    "id": 14,
-    "name": "World of Destiny 2",
-    "price": 64.75,
-    "genres": [
-      "Racing",
-      "Simulation",
-      "Puzzle"
-    ],
-    "description": "A gripping story of survival and redemption.",
-    "releaseDate": 1649872720283,
-    "imageUrl": "http://example.com/game_14.jpg",
-    "isMultiplayer": true,
-    "studioID": "Dreamscape Digital",
-    "subscription": true
-  },
-  {
-    "id": 15,
-    "name": "Legend of Combat 4",
-    "price": 32.88,
-    "genres": [
-      "Fighting",
-      "Platformer",
-      "Sports"
-    ],
-    "description": "Battle against formidable foes.",
-    "releaseDate": 1731401343712,
-    "imageUrl": "http://example.com/game_15.jpg",
-    "isMultiplayer": true,
-    "studioID": "Pixel Forge",
-    "subscription": true
-  },
-  {
-    "id": 16,
-    "name": "Final Adventure 1",
-    "price": 54.79,
-    "genres": [
-      "Adventure",
-      "Racing",
-      "Platformer"
-    ],
-    "description": "Uncover the secrets of the ancient world.",
-    "releaseDate": 1767632201918,
-    "imageUrl": "http://example.com/game_16.jpg",
-    "isMultiplayer": false,
-    "studioID": "Horizon Labs",
-    "subscription": true
-  },
-  {
-    "id": 17,
-    "name": "Super Tycoon 8",
-    "price": 11.64,
-    "genres": [
-      "Adventure",
-      "Fighting"
-    ],
-    "description": "Build and manage your dream empire.",
-    "releaseDate": 1729215572259,
-    "imageUrl": "http://example.com/game_17.jpg",
-    "isMultiplayer": false,
-    "studioID": "Vortex Entertainment",
-    "subscription": false
-  },
-  {
-    "id": 18,
-    "name": "Cyber Tactics 3",
-    "price": 61.24,
-    "genres": [
-      "Fighting",
-      "Adventure",
-      "Platformer"
-    ],
-    "description": "Uncover the secrets of the ancient world.",
-    "releaseDate": 1695536238549,
-    "imageUrl": "http://example.com/game_18.jpg",
-    "isMultiplayer": true,
-    "studioID": "Titan creations",
-    "subscription": false
-  },
-  {
-    "id": 19,
-    "name": "Ultimate Combat 9",
-    "price": 57.7,
-    "genres": [
-      "Fighting"
-    ],
-    "description": "Build and manage your dream empire.",
-    "releaseDate": 1771421510890,
-    "imageUrl": "http://example.com/game_19.jpg",
-    "isMultiplayer": false,
-    "studioID": "Vortex Entertainment",
-    "subscription": false
-  },
-  {
-    "id": 20,
-    "name": "Star Combat 7",
-    "price": 41.22,
-    "genres": [
-      "Simulation"
-    ],
-    "description": "Build and manage your dream empire.",
-    "releaseDate": 1698634504322,
-    "imageUrl": "http://example.com/game_20.jpg",
-    "isMultiplayer": false,
-    "studioID": "Horizon Labs",
-    "subscription": true
-  },
-  {
-    "id": 21,
-    "name": "World of Simulator 6",
-    "price": 45.83,
-    "genres": [
-      "Action"
-    ],
-    "description": "An epic journey through time.",
-    "releaseDate": 1683802153221,
-    "imageUrl": "http://example.com/game_21.jpg",
-    "isMultiplayer": false,
-    "studioID": "Vortex Entertainment",
-    "subscription": true
-  },
-  {
-    "id": 22,
-    "name": "Battle Tycoon 9",
-    "price": 64.41,
-    "genres": [
-      "Puzzle"
-    ],
-    "description": "Battle against formidable foes.",
-    "releaseDate": 1706649127379,
-    "imageUrl": "http://example.com/game_22.jpg",
-    "isMultiplayer": true,
-    "studioID": "Nebula Interactive",
-    "subscription": false
-  },
-  {
-    "id": 23,
-    "name": "Mega Legends 7",
-    "price": 14.47,
-    "genres": [
-      "Action"
-    ],
-    "description": "A gripping story of survival and redemption.",
-    "releaseDate": 1749192101589,
-    "imageUrl": "http://example.com/game_23.jpg",
-    "isMultiplayer": false,
-    "studioID": "Quantum Games",
-    "subscription": false
-  },
-  {
-    "id": 24,
-    "name": "World of Adventure 9",
-    "price": 14.25,
-    "genres": [
-      "Racing"
-    ],
-    "description": "Build and manage your dream empire.",
-    "releaseDate": 1716583758970,
-    "imageUrl": "http://example.com/game_24.jpg",
-    "isMultiplayer": true,
-    "studioID": "Crystal Dynamics",
-    "subscription": true
-  },
-  {
-    "id": 25,
-    "name": "Star Simulator 5",
-    "price": 28.34,
-    "genres": [
-      "Fighting"
-    ],
-    "description": "Fast-paced action and adventure.",
-    "releaseDate": 1724080074695,
-    "imageUrl": "http://example.com/game_25.jpg",
-    "isMultiplayer": false,
-    "studioID": "Ironclad Studios",
-    "subscription": true
-  },
-  {
-    "id": 26,
-    "name": "Mega Legends 3",
-    "price": 37.12,
-    "genres": [
-      "Adventure",
-      "Shooter"
-    ],
-    "description": "Battle against formidable foes.",
-    "releaseDate": 1655431605345,
-    "imageUrl": "http://example.com/game_26.jpg",
-    "isMultiplayer": false,
-    "studioID": "Dreamscape Digital",
-    "subscription": true
-  },
-  {
-    "id": 27,
-    "name": "Call of Manager 5",
-    "price": 12.54,
-    "genres": [
-      "Platformer",
-      "Racing"
-    ],
-    "description": "Experience the ultimate simulation.",
-    "releaseDate": 1698130106950,
-    "imageUrl": "http://example.com/game_27.jpg",
-    "isMultiplayer": false,
-    "studioID": "Pixel Forge",
-    "subscription": false
-  },
-  {
-    "id": 28,
-    "name": "Super Simulator 7",
-    "price": 62.13,
-    "genres": [
-      "Platformer"
-    ],
-    "description": "A gripping story of survival and redemption.",
-    "releaseDate": 1646563796825,
-    "imageUrl": "http://example.com/game_28.jpg",
-    "isMultiplayer": true,
-    "studioID": "Ironclad Studios",
-    "subscription": false
-  },
-  {
-    "id": 29,
-    "name": "Shadow of Heroes 4",
-    "price": 27.93,
-    "genres": [
-      "Adventure"
-    ],
-    "description": "An epic journey through time.",
-    "releaseDate": 1668702029383,
-    "imageUrl": "http://example.com/game_29.jpg",
-    "isMultiplayer": false,
-    "studioID": "Aurora Softworks",
-    "subscription": false
-  },
-  {
-    "id": 30,
-    "name": "Cyber Warriors 3",
-    "price": 61.38,
-    "genres": [
-      "Action",
-      "Adventure",
-      "RPG"
-    ],
-    "description": "Fast-paced action and adventure.",
-    "releaseDate": 1713107466039,
-    "imageUrl": "http://example.com/game_30.jpg",
-    "isMultiplayer": true,
-    "studioID": "Pixel Forge",
-    "subscription": true
-  },
-  {
-    "id": 31,
-    "name": "Legend of Manager 6",
-    "price": 17.55,
-    "genres": [
-      "Sports",
-      "Simulation"
-    ],
-    "description": "Battle against formidable foes.",
-    "releaseDate": 1685283805976,
-    "imageUrl": "http://example.com/game_31.jpg",
-    "isMultiplayer": true,
-    "studioID": "Ironclad Studios",
-    "subscription": false
-  },
-  {
-    "id": 32,
-    "name": "World of Quest 2",
-    "price": 63.59,
-    "genres": [
-      "Racing"
-    ],
-    "description": "Battle against formidable foes.",
-    "releaseDate": 1628294743048,
-    "imageUrl": "http://example.com/game_32.jpg",
-    "isMultiplayer": true,
-    "studioID": "Titan creations",
-    "subscription": false
-  },
-  {
-    "id": 33,
-    "name": "World of Tactics 2",
-    "price": 31.93,
-    "genres": [
-      "Fighting",
-      "Platformer",
-      "Adventure"
-    ],
-    "description": "A gripping story of survival and redemption.",
-    "releaseDate": 1730344694829,
-    "imageUrl": "http://example.com/game_33.jpg",
-    "isMultiplayer": true,
-    "studioID": "Quantum Games",
-    "subscription": true
-  },
-  {
-    "id": 34,
-    "name": "Rise of Tycoon 8",
-    "price": 17.42,
-    "genres": [
-      "Shooter"
-    ],
-    "description": "Battle against formidable foes.",
-    "releaseDate": 1739391019284,
-    "imageUrl": "http://example.com/game_34.jpg",
-    "isMultiplayer": true,
-    "studioID": "Pixel Forge",
-    "subscription": false
-  },
-  {
-    "id": 35,
-    "name": "Mega Tycoon 5",
-    "price": 60.85,
-    "genres": [
-      "Fighting",
-      "Action"
-    ],
-    "description": "A gripping story of survival and redemption.",
-    "releaseDate": 1694082618307,
-    "imageUrl": "http://example.com/game_35.jpg",
-    "isMultiplayer": true,
-    "studioID": "Dreamscape Digital",
-    "subscription": true
-  },
-  {
-    "id": 36,
-    "name": "Battle Heroes 5",
-    "price": 43.84,
-    "genres": [
-      "Fighting"
-    ],
-    "description": "Experience the ultimate simulation.",
-    "releaseDate": 1723737262437,
-    "imageUrl": "http://example.com/game_36.jpg",
-    "isMultiplayer": false,
-    "studioID": "Nebula Interactive",
-    "subscription": true
-  },
-  {
-    "id": 37,
-    "name": "Call of Warriors 7",
-    "price": 11.79,
-    "genres": [
-      "Action",
-      "Fighting"
-    ],
-    "description": "Uncover the secrets of the ancient world.",
-    "releaseDate": 1679136047859,
-    "imageUrl": "http://example.com/game_37.jpg",
-    "isMultiplayer": false,
-    "studioID": "Pixel Forge",
-    "subscription": false
-  },
-  {
-    "id": 38,
-    "name": "Battle Manager 4",
-    "price": 53.48,
-    "genres": [
-      "Shooter"
-    ],
-    "description": "An epic journey through time.",
-    "releaseDate": 1689234236183,
-    "imageUrl": "http://example.com/game_38.jpg",
-    "isMultiplayer": true,
-    "studioID": "Nebula Interactive",
-    "subscription": true
-  },
-  {
-    "id": 39,
-    "name": "Final Adventure 5",
-    "price": 16.17,
-    "genres": [
-      "RPG"
-    ],
-    "description": "Build and manage your dream empire.",
-    "releaseDate": 1699573263287,
-    "imageUrl": "http://example.com/game_39.jpg",
-    "isMultiplayer": true,
-    "studioID": "Aurora Softworks",
-    "subscription": true
-  },
-  {
-    "id": 40,
-    "name": "Mega Adventure 3",
-    "price": 37.54,
-    "genres": [
-      "Sports",
-      "Puzzle"
-    ],
-    "description": "An epic journey through time.",
-    "releaseDate": 1737444064403,
-    "imageUrl": "http://example.com/game_40.jpg",
-    "isMultiplayer": false,
-    "studioID": "Vortex Entertainment",
-    "subscription": false
-  },
-  {
-    "id": 41,
-    "name": "Age of Empire 5",
-    "price": 52.72,
-    "genres": [
-      "Action"
-    ],
-    "description": "Experience the ultimate simulation.",
-    "releaseDate": 1646184865719,
-    "imageUrl": "http://example.com/game_41.jpg",
-    "isMultiplayer": true,
-    "studioID": "Horizon Labs",
-    "subscription": true
-  },
-  {
-    "id": 42,
-    "name": "Rise of Adventure 4",
-    "price": 14.49,
-    "genres": [
-      "Puzzle",
-      "Strategy",
-      "Simulation"
-    ],
-    "description": "Experience the ultimate simulation.",
-    "releaseDate": 1625199325208,
-    "imageUrl": "http://example.com/game_42.jpg",
-    "isMultiplayer": true,
-    "studioID": "Nebula Interactive",
-    "subscription": false
-  },
-  {
-    "id": 43,
-    "name": "Mega Manager 6",
-    "price": 22.02,
-    "genres": [
-      "Fighting",
-      "Racing"
-    ],
-    "description": "Uncover the secrets of the ancient world.",
-    "releaseDate": 1628125680934,
-    "imageUrl": "http://example.com/game_43.jpg",
-    "isMultiplayer": true,
-    "studioID": "Titan creations",
-    "subscription": true
-  },
-  {
-    "id": 44,
-    "name": "Age of Empire 9",
-    "price": 19.57,
-    "genres": [
-      "RPG"
-    ],
-    "description": "Fast-paced action and adventure.",
-    "releaseDate": 1741864912939,
-    "imageUrl": "http://example.com/game_44.jpg",
-    "isMultiplayer": false,
-    "studioID": "Vortex Entertainment",
-    "subscription": true
-  },
-  {
-    "id": 45,
-    "name": "Rise of Adventure 5",
-    "price": 23.89,
-    "genres": [
-      "Puzzle",
-      "Racing",
-      "Platformer"
-    ],
-    "description": "Fast-paced action and adventure.",
-    "releaseDate": 1731188052007,
-    "imageUrl": "http://example.com/game_45.jpg",
-    "isMultiplayer": true,
-    "studioID": "Vortex Entertainment",
-    "subscription": true
-  },
-  {
-    "id": 46,
-    "name": "Ultimate Legends 1",
-    "price": 52.43,
-    "genres": [
-      "Fighting",
-      "RPG"
-    ],
-    "description": "Battle against formidable foes.",
-    "releaseDate": 1701167293427,
-    "imageUrl": "http://example.com/game_46.jpg",
-    "isMultiplayer": true,
-    "studioID": "Aurora Softworks",
-    "subscription": false
-  },
-  {
-    "id": 47,
-    "name": "Final Simulator 5",
-    "price": 22.48,
-    "genres": [
-      "Sports",
-      "Simulation",
-      "Platformer"
-    ],
-    "description": "Uncover the secrets of the ancient world.",
-    "releaseDate": 1722676852076,
-    "imageUrl": "http://example.com/game_47.jpg",
-    "isMultiplayer": false,
-    "studioID": "Crystal Dynamics",
-    "subscription": false
-  },
-  {
-    "id": 48,
-    "name": "Rise of Warriors 4",
-    "price": 66.8,
-    "genres": [
-      "Fighting",
-      "Puzzle"
-    ],
-    "description": "An epic journey through time.",
-    "releaseDate": 1752940583063,
-    "imageUrl": "http://example.com/game_48.jpg",
-    "isMultiplayer": true,
-    "studioID": "Nebula Interactive",
-    "subscription": true
-  },
-  {
-    "id": 49,
-    "name": "Ultimate Combat 9",
-    "price": 36.86,
-    "genres": [
-      "Platformer",
-      "Puzzle",
-      "Simulation"
-    ],
-    "description": "Experience the ultimate simulation.",
-    "releaseDate": 1620223422171,
-    "imageUrl": "http://example.com/game_49.jpg",
-    "isMultiplayer": true,
-    "studioID": "Vortex Entertainment",
-    "subscription": false
-  },
-  {
-    "id": 50,
-    "name": "Rise of Tactics 4",
-    "price": 24.91,
-    "genres": [
-      "Racing"
-    ],
-    "description": "An epic journey through time.",
-    "releaseDate": 1700978873675,
-    "imageUrl": "http://example.com/game_50.jpg",
-    "isMultiplayer": false,
-    "studioID": "Titan creations",
+    "studioID": "Playground Games",
     "subscription": true
   }
 ]

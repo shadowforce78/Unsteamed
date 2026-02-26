@@ -1,122 +1,80 @@
 [
   {
     "id": 1,
-    "name": "Pixel Forge",
-    "imageUrl": "http://example.com/studio_1.jpg",
+    "name": "CD Projekt Red",
+    "imageUrl": "http://example.com/logo_cdpr.jpg",
     "gamesID": [
-      12,
-      15,
-      27,
-      30,
-      34,
-      37
+      1,
+      9
     ]
   },
   {
     "id": 2,
-    "name": "Quantum Games",
-    "imageUrl": "http://example.com/studio_2.jpg",
+    "name": "FromSoftware",
+    "imageUrl": "http://example.com/logo_fromsoft.jpg",
     "gamesID": [
-      5,
-      23,
-      33
+      2
     ]
   },
   {
     "id": 3,
-    "name": "Nebula Interactive",
-    "imageUrl": "http://example.com/studio_3.jpg",
+    "name": "Naughty Dog",
+    "imageUrl": "http://example.com/logo_naughtydog.jpg",
     "gamesID": [
-      2,
-      6,
-      8,
-      22,
-      36,
-      38,
-      42,
-      48
+      3
     ]
   },
   {
     "id": 4,
-    "name": "Ironclad Studios",
-    "imageUrl": "http://example.com/studio_4.jpg",
+    "name": "Santa Monica Studio",
+    "imageUrl": "http://example.com/logo_sms.jpg",
     "gamesID": [
-      25,
-      28,
-      31
+      4
     ]
   },
   {
     "id": 5,
-    "name": "Dreamscape Digital",
-    "imageUrl": "http://example.com/studio_5.jpg",
+    "name": "Rockstar Games",
+    "imageUrl": "http://example.com/logo_rockstar.jpg",
     "gamesID": [
-      11,
-      14,
-      26,
-      35
+      5,
+      6
     ]
   },
   {
     "id": 6,
-    "name": "Vortex Entertainment",
-    "imageUrl": "http://example.com/studio_6.jpg",
+    "name": "Insomniac Games",
+    "imageUrl": "http://example.com/logo_insomniac.jpg",
     "gamesID": [
-      10,
-      13,
-      17,
-      19,
-      21,
-      40,
-      44,
-      45,
-      49
+      7
     ]
   },
   {
     "id": 7,
-    "name": "Crystal Dynamics",
-    "imageUrl": "http://example.com/studio_7.jpg",
+    "name": "Supergiant Games",
+    "imageUrl": "http://example.com/logo_supergiant.jpg",
     "gamesID": [
-      4,
-      7,
-      24,
-      47
+      8
     ]
   },
   {
     "id": 8,
-    "name": "Horizon Labs",
-    "imageUrl": "http://example.com/studio_8.jpg",
+    "name": "Playground Games",
+    "imageUrl": "http://example.com/logo_playground.jpg",
     "gamesID": [
-      1,
-      9,
-      16,
-      20,
-      41
+      10
     ]
   },
   {
     "id": 9,
-    "name": "Titan creations",
-    "imageUrl": "http://example.com/studio_9.jpg",
-    "gamesID": [
-      18,
-      32,
-      43,
-      50
-    ]
+    "name": "Ubisoft Montreal",
+    "imageUrl": "http://example.com/logo_ubisoft.jpg",
+    "gamesID": []
   },
   {
     "id": 10,
-    "name": "Aurora Softworks",
-    "imageUrl": "http://example.com/studio_10.jpg",
-    "gamesID": [
-      3,
-      29,
-      39,
-      46
-    ]
+    "name": "Nintendo EPD",
+    "imageUrl": "http://example.com/logo_nintendo.jpg",
+    "gamesID": []
   }
 ]

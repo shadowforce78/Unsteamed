@@ -14,12 +14,6 @@ public class Cli {
         StudioRepository studioRepository = new StudioRepository();
         UserRepository userRepository = new UserRepository();
 
-        System.out.println(userRepository.toString());
 
-        Date date = new Date();
-        User userToAdd = new User(0, "testuser", "test@gmail.com", "testpassword", date);
-        userRepository.registerUser(userToAdd);
-
-        System.out.println(userRepository.toString());
     }
 }
