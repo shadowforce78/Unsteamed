@@ -1,5 +1,9 @@
 package com.saumon.core.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.saumon.core.repository.GameRepository;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -9,12 +13,12 @@ public class User {
     private String email;
     private String password;
     private Date registrationDate;
-    private List<Game> games;
+    private List<Integer> games;
 
     public User() {
     }
 
-    public User(int id, String username, String email, String password, Date registrationDate, List<Game> games) {
+    public User(int id, String username, String email, String password, Date registrationDate, List<Integer> games) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -39,7 +43,17 @@ public class User {
         return password;
     }
 
-    public List<Game> getGames() {
+    @JsonIgnore
+    public List<Game> fetchGames() {
+        List<Game> userGames = new ArrayList<>();
+        GameRepository gameRepo = new GameRepository();
+        for (Integer gameID : games) {
+            userGames.add(gameRepo.getGameById(gameID));
+        }
+        return userGames;
+    }
+
+    public List<Integer> getGames() {
         return games;
     }
 
@@ -49,6 +63,12 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public void addGame(Integer gameID) {
+        if (!games.contains(gameID)) {
+            games.add(gameID);
+        }
     }
 
     public void setUsername(String username) {
@@ -67,9 +87,10 @@ public class User {
         this.registrationDate = registrationDate;
     }
 
-    public void addGame(Game game) {
-        this.games.add(game);
+    public void setGames(List<Integer> games) {
+        this.games = games;
     }
+
 
     @Override
     public String toString() {

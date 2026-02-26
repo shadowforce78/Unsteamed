@@ -16,10 +16,16 @@ public class Cli {
         StudioRepository studioRepository = new StudioRepository();
         UserRepository userRepository = new UserRepository();
 
-        Game newGame = new Game(1, "The Legend of Zelda: Breath of the Wild", 59.99, List.of("Action-adventure"), "An open-world adventure game set in the kingdom of Hyrule.", new Date(), "https://example.com/botw.jpg", false, studioRepository.getStudioIDByStudioName("Nintendo"), false);
-        gameRepository.addGame(newGame);
+
         User user1 = userRepository.getUserById(1);
+        Game game1 = gameRepository.getGameById(2);
+
         System.out.println(user1);
+        System.out.println(game1);
+
+        System.out.println(user1.getGames());
+        System.out.println(game1.getId());
+        userRepository.addGameToUser(user1, game1);
 
     }
 }

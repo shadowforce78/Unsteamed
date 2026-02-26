@@ -3,6 +3,7 @@ package com.saumon.core.repository;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.saumon.core.model.User;
+import com.saumon.core.model.Game;
 
 import java.io.File;
 import java.io.IOException;
@@ -56,5 +57,12 @@ public class UserRepository {
         }
     }
 
-
+    public void addGameToUser(User user, Game game) {
+        Integer gameId = game.getId();
+        List<Integer> userGames = user.getGames();
+        if (!userGames.contains(gameId)) {
+            user.addGame(gameId);
+        }
+        saveUsers();
+    }
 }

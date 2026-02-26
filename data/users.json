@@ -4,19 +4,12 @@
   "email" : "user1@example.com",
   "password" : "password123",
   "registrationDate" : null,
-  "games": []
+  "games" : [ ]
 }, {
   "id" : 2,
   "username" : "User2",
   "email" : "user2@example.com",
   "password" : "password456",
   "registrationDate" : null,
-    "games": []
-}, {
-  "id" : 3,
-  "username" : "testuser",
-  "email" : "test@gmail.com",
-  "password" : "testpassword",
-  "registrationDate" : 1771511220221,
-    "games": []
+  "games" : [ ]
 } ]
