@@ -12,13 +12,13 @@ public class Game {
     private Date releaseDate;
     private String imageUrl;
     private Boolean isMultiplayer;
-    private String studioID;
+    private int studioID;
     private Boolean subscription;
 
     public Game() {
     }
 
-    public Game(int id, String name, Double price, List<String> genres, String description,Date releaseDate,String imageUrl, Boolean isMultiplayer, String studioID, Boolean subscription) {
+    public Game(int id, String name, Double price, List<String> genres, String description,Date releaseDate,String imageUrl, Boolean isMultiplayer, int studioID, Boolean subscription) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -34,41 +34,70 @@ public class Game {
     public int getId() {
         return id;
     }
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
+    }
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Double getPrice() {
         return price;
     }
+    public void setPrice(Double price) {
+        this.price = price;
+    }
 
     public List<String> getGenres() {
         return genres;
     }
+    public void addGenres(List<String> genres) {
+this.genres.addAll(genres);    }
 
     public String getDescription() {
         return description;
+    }
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Date getReleaseDate() {
         return releaseDate;
     }
+    public void setReleaseDate(Date releaseDate) {
+        this.releaseDate = releaseDate;
+    }
 
     public String getImageUrl() {
         return imageUrl;
+    }
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public Boolean getIsMultiplayer() {
         return isMultiplayer;
     }
+        public void setIsMultiplayer(Boolean isMultiplayer) {
+            this.isMultiplayer = isMultiplayer;
+        }
 
-    public String getStudioID() {
+    public int getStudioID() {
         return studioID;
+    }
+    public void setStudioID(int studioID) {
+        this.studioID = studioID;
     }
 
     public Boolean getSubscription() {
         return subscription;
+    }
+    public void setSubscription(Boolean subscription) {
+        this.subscription = subscription;
     }
 
     @Override

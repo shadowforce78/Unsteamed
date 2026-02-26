@@ -56,16 +56,5 @@ public class UserRepository {
         }
     }
 
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        for (User user : users) {
-            sb.append("ID: ").append(user.getId())
-              .append(", Username: ").append(user.getUsername())
-              .append(", Email: ").append(user.getEmail())
-              .append(", Registration Date: ").append(user.getRegistrationDate())
-              .append("\n");
-        }
-        return sb.toString();
-    }
 
 }

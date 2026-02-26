@@ -31,6 +31,22 @@ public class GameRepository {
         return games;
     }
 
+        public void saveGames() {
+            ObjectMapper mapper = new ObjectMapper();
+            try {
+                mapper.writerWithDefaultPrettyPrinter().writeValue(new File(DATA_FILE), games);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+    public void addGame(Game newGame) {
+        int newId = games.size() + 1; // Simple ID generation strategy
+        newGame.setId(newId);
+        games.add(newGame);
+        saveGames();
+    }
+
     public Game getGameById(int id) {
         for (Game game : games) {
             if (game.getId() == id) {

@@ -50,6 +50,15 @@ public class StudioRepository {
         return gamesIDs;
     }
 
+    public int getStudioIDByStudioName(String studioName){
+        for (Studio studio : studios) {
+            if (studio.getName().equalsIgnoreCase(studioName)) {
+                return studio.getId();
+            }
+        }
+        return -1; // Return -1 if no matching studio is found
+    }
+
     public List<Game> getAllGames(Integer studioID) {
         List<Game> games = new ArrayList<>();
         Studio studio = getStudioById(studioID);

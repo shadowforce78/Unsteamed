@@ -1,6 +1,7 @@
 package com.saumon.core.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class User {
     private int id;
@@ -8,16 +9,18 @@ public class User {
     private String email;
     private String password;
     private Date registrationDate;
+    private List<Game> games;
 
     public User() {
     }
 
-    public User(int id, String username, String email, String password, Date registrationDate) {
+    public User(int id, String username, String email, String password, Date registrationDate, List<Game> games) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
         this.registrationDate = registrationDate;
+        this.games = games;
     }
 
     public int getId() {
@@ -34,6 +37,10 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    public List<Game> getGames() {
+        return games;
     }
 
     public Date getRegistrationDate() {
@@ -56,6 +63,14 @@ public class User {
         this.password = password;
     }
 
+    public void setRegistrationDate(Date registrationDate) {
+        this.registrationDate = registrationDate;
+    }
+
+    public void addGame(Game game) {
+        this.games.add(game);
+    }
+
     @Override
     public String toString() {
         return "{" +
@@ -63,6 +78,7 @@ public class User {
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", registrationDate=" + registrationDate +
+                ", games=" + games +
                 '}';
     }
 }
