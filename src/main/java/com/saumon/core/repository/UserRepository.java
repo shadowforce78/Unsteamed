@@ -41,6 +41,15 @@ public class UserRepository {
         return null;
     }
 
+    public User getUserByEmail(String email) {
+        for (User user : users) {
+            if (user.getEmail().equals(email)) {
+                return user;
+            }
+        }
+        return null;
+    }
+
     public void registerUser(User newUser) {
         int newId = users.size() + 1; // Simple ID generation strategy
         newUser.setId(newId);
@@ -64,5 +73,10 @@ public class UserRepository {
             user.addGame(gameId);
         }
         saveUsers();
+    }
+
+    public void updateUserProgression(User user, int gameId, int level) {
+         user.updateProgression(gameId, level);
+         saveUsers();
     }
 }

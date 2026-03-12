@@ -4,12 +4,22 @@
   "email" : "user1@example.com",
   "password" : "password123",
   "registrationDate" : null,
-  "games" : [ ]
+  "games" : [ ],
+  "progression" : { }
 }, {
   "id" : 2,
   "username" : "User2",
   "email" : "user2@example.com",
   "password" : "password456",
   "registrationDate" : null,
-  "games" : [ ]
+  "games" : [ ],
+  "progression" : { }
+}, {
+  "id" : 3,
+  "username" : "saumondeluxe",
+  "email" : "test@gmail.com",
+  "password" : "caca78",
+  "registrationDate" : 1773307362015,
+  "games" : [ 1 ],
+  "progression" : { }
 } ]

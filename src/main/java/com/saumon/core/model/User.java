@@ -6,6 +6,8 @@ import com.saumon.core.repository.GameRepository;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class User {
     private int id;
@@ -14,17 +16,21 @@ public class User {
     private String password;
     private Date registrationDate;
     private List<Integer> games;
+    private Map<Integer, Integer> progression;
 
     public User() {
+        this.games = new ArrayList<>();
+        this.progression = new HashMap<>();
     }
 
-    public User(int id, String username, String email, String password, Date registrationDate, List<Integer> games) {
+    public User(int id, String username, String email, String password, Date registrationDate, List<Integer> games, Map<Integer, Integer> progression) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
         this.registrationDate = registrationDate;
-        this.games = games;
+        this.games = games != null ? games : new ArrayList<>();
+        this.progression = progression != null ? progression : new HashMap<>();
     }
 
     public int getId() {
@@ -55,6 +61,14 @@ public class User {
 
     public List<Integer> getGames() {
         return games;
+    }
+
+    public Map<Integer, Integer> getProgression() {
+        return progression;
+    }
+
+    public void setProgression(Map<Integer, Integer> progression) {
+        this.progression = progression;
     }
 
     public Date getRegistrationDate() {
@@ -91,6 +105,12 @@ public class User {
         this.games = games;
     }
 
+    public void updateProgression(Integer gameID, Integer level) {
+         if (games.contains(gameID)) {
+             progression.put(gameID, level);
+         }
+    }
+
 
     @Override
     public String toString() {
@@ -100,6 +120,7 @@ public class User {
                 ", email='" + email + '\'' +
                 ", registrationDate=" + registrationDate +
                 ", games=" + games +
+                ", progression=" + progression +
                 '}';
     }
 }
