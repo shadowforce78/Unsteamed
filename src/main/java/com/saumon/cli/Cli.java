@@ -61,7 +61,7 @@ public class Cli {
         System.out.println("  --i <email> <password>             Login");
         System.out.println("  --a                                Show library");
         System.out.println("  --g                                Show game catalog");
-        System.out.println("  --b <gameId>                       Buy/Add game");
+        System.out.println("  --b <gameId>                       Buy/Add game (use comma for multiple IDs, e.g., --b 1,2,3)");
         System.out.println("  --p <gameId> <level>               Update progression");
         System.out.println("  --h                                Show help");
     }
@@ -154,9 +154,23 @@ public class Cli {
 
     private static void buyGame(String[] args) {
         if (args.length < 2) {
-            System.out.println("Error: Missing arguments for --b. Usage: --b <gameId>");
+            System.out.println("Error: Missing arguments for --b. Usage: --b <gameId> (or comma-separated list of gameIds ex: --b 1,2,3)");
             return;
         }
+        // Split args if there are multiple game IDs provided (1,2,3)
+        if (args[1].contains(",")) {
+            String[] gameIds = args[1].split(",");
+            for (String gameIdStr : gameIds) {
+                try {
+                    int gameId = Integer.parseInt(gameIdStr.trim());
+                    buyGame(new String[]{"--b", String.valueOf(gameId)});
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid game ID: " + gameIdStr);
+                }
+            }
+            return;
+        }
+
         User user = getSessionUser();
         if (user == null) return;
 
