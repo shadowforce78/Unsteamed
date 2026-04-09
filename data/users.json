@@ -1,0 +1,11 @@
+[ {
+  "id" : 1,
+  "username" : "test",
+  "email" : "test",
+  "password" : "test",
+  "registrationDate" : 1775729942675,
+  "games" : [ ],
+  "progression" : { },
+  "playtime" : { },
+  "balance" : 1000.0
+} ]
