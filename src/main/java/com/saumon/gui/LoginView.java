@@ -107,7 +107,7 @@ public class LoginView {
                 if (username.isEmpty() || email.isEmpty() || pass.isEmpty()) { error.setText("Veuillez remplir tous les champs."); return; }
                 if (!pass.equals(conf)) { error.setText("Les mots de passe ne correspondent pas."); return; }
                 if (App.userRepo.getUserByEmail(email) != null) { error.setText("Un compte avec cet email existe déjà."); return; }
-                User newUser = new User(0, username, email, pass, new Date(), new ArrayList<>(), new HashMap<>());
+                User newUser = new User(0, username, email, pass, new Date(), new ArrayList<>(), new HashMap<>(), new HashMap<>(), 1000.0);
                 App.userRepo.registerUser(newUser);
                 App.setCurrentUser(newUser);
                 App.showMain();

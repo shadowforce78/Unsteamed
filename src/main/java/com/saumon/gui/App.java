@@ -48,10 +48,17 @@ public class App extends Application {
         primaryStage.setScene(scene);
     }
 
+    private static MainView currentMainView;
+
     public static void showMain() {
-        Scene scene = new Scene(new MainView().build(),
+        currentMainView = new MainView();
+        Scene scene = new Scene(currentMainView.build(),
                 primaryStage.getWidth(), primaryStage.getHeight());
         primaryStage.setScene(scene);
+    }
+
+    public static MainView getMainView() {
+        return currentMainView;
     }
 
     public static User getCurrentUser()          { return currentUser; }
@@ -62,4 +69,3 @@ public class App extends Application {
         showLogin();
     }
 }
-

@@ -79,4 +79,30 @@ public class UserRepository {
          user.updateProgression(gameId, level);
          saveUsers();
     }
+
+    public void updateUserPlaytime(User user, int gameId, double hours) {
+         user.updatePlaytime(gameId, hours);
+         saveUsers();
+    }
+
+    public void addUserBalance(User user, double amount) {
+         user.addBalance(amount);
+         saveUsers();
+    }
+
+    public boolean deductUserBalance(User user, double amount) {
+         boolean deducted = user.deductBalance(amount);
+         if (deducted) {
+             saveUsers();
+         }
+         return deducted;
+    }
+
+    public boolean refundGame(User user, Game game) {
+         boolean refunded = user.refundGame(game);
+         if (refunded) {
+             saveUsers();
+         }
+         return refunded;
+    }
 }

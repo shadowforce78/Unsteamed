@@ -79,8 +79,7 @@ public class Cli {
             System.out.println("Error: User with this email already exists.");
             return;
         }
-
-        User newUser = new User(0, username, email, password, new Date(), new ArrayList<>(), new HashMap<>());
+        User newUser = new User(0, username, email, password, new Date(), new ArrayList<Integer>(), new HashMap<Integer, Integer>(), new HashMap<Integer, Double>(), 1000.0);
         userRepository.registerUser(newUser);
         System.out.println("Account created successfully!");
     }
@@ -185,8 +184,15 @@ public class Cli {
             if (user.getGames().contains(gameId)) {
                 System.out.println("You already own this game.");
             } else {
-                userRepository.addGameToUser(user, game);
-                System.out.println("Successfully purchased " + game.getName() + "!");
+                double price = game.getPrice() != null ? game.getPrice() : 0.0;
+                if (user.getBalance() >= price) {
+                    userRepository.deductUserBalance(user, price); // Deduct balance correctly
+                    userRepository.addGameToUser(user, game);
+                    System.out.println("Successfully purchased " + game.getName() + " for $" + price + "!");
+                    System.out.println("New balance: $" + user.getBalance());
+                } else {
+                    System.out.println("Insufficient balance. You need $" + price + " but have $" + user.getBalance());
+                }
             }
         } catch (NumberFormatException e) {
             System.out.println("Invalid game ID.");

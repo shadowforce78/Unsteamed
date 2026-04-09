@@ -126,10 +126,22 @@ public class CatalogView {
 
         if (!owned && user != null) {
             buyBtn.setOnAction(e -> {
-                App.userRepo.addGameToUser(user, game);
-                buyBtn.setText("Possede");
-                applyBuyStyle(buyBtn, true);
-                buyBtn.setOnAction(null);
+                double price = game.getPrice() != null ? game.getPrice() : 0.0;
+                if (user.getBalance() >= price) {
+                    App.userRepo.deductUserBalance(user, price);
+                    App.userRepo.addGameToUser(user, game);
+                    buyBtn.setText("Possede");
+                    applyBuyStyle(buyBtn, true);
+                    buyBtn.setOnAction(null);
+
+                    if (App.getMainView() != null) {
+                        App.getMainView().refreshBalance();
+                        App.getMainView().refreshCatalogView();
+                    }
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Solde insuffisant ! Il vous faut " + price + " €");
+                    alert.show();
+                }
             });
         }
 

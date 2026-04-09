@@ -11,6 +11,10 @@ public class MainView {
 
     private BorderPane root;
     private Button activeNav;
+    private Label balanceLabel;
+    private Button btnCatalog;
+    private Button btnLibrary;
+    private Button btnHelp;
 
     public Parent build() {
         root = new BorderPane();
@@ -39,15 +43,41 @@ public class MainView {
         welcome.setStyle("-fx-text-fill: " + App.DIM + "; -fx-font-size: 12;");
         welcome.setWrapText(true);
 
-        header.getChildren().addAll(logo, welcome);
+        balanceLabel = new Label();
+        refreshBalance();
+        balanceLabel.setStyle("-fx-text-fill: " + App.PRICE_CLR + "; -fx-font-size: 13; -fx-font-weight: bold;");
+
+        Button btnAddBalance = new Button("+ Fonds");
+        btnAddBalance.setStyle("-fx-background-color: transparent; -fx-text-fill: " + App.ACCENT + "; -fx-cursor: hand; -fx-padding: 0;");
+        btnAddBalance.setOnAction(e -> {
+            TextInputDialog dialog = new TextInputDialog("10");
+            dialog.setTitle("Ajouter des fonds");
+            dialog.setHeaderText("Combien voulez-vous ajouter à votre solde ?");
+            dialog.setContentText("Montant : ");
+            dialog.showAndWait().ifPresent(amountStr -> {
+                try {
+                    double amount = Double.parseDouble(amountStr);
+                    App.userRepo.addUserBalance(App.getCurrentUser(), amount);
+                    refreshBalance();
+                } catch (NumberFormatException ex) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Montant invalide.");
+                    alert.show();
+                }
+            });
+        });
+
+        HBox balanceBox = new HBox(8, balanceLabel, btnAddBalance);
+        balanceBox.setAlignment(Pos.CENTER_LEFT);
+
+        header.getChildren().addAll(logo, welcome, balanceBox);
 
         // ── Nav buttons ──
         VBox nav = new VBox(4);
         nav.setPadding(new Insets(16, 10, 16, 10));
 
-        Button btnCatalog = navBtn("  Catalogue de jeux", false);
-        Button btnLibrary = navBtn("  Ma Bibliotheque", false);
-        Button btnHelp    = navBtn("  Aide", false);
+        btnCatalog = navBtn("  Catalogue de jeux", false);
+        btnLibrary = navBtn("  Ma Bibliotheque", false);
+        btnHelp    = navBtn("  Aide", false);
 
         btnCatalog.setOnAction(e -> { setActive(btnCatalog); showCatalog(); });
         btnLibrary.setOnAction(e -> { setActive(btnLibrary); showLibrary(); });
@@ -108,6 +138,22 @@ public class MainView {
         applyNavStyle(btn, true);
     }
 
+    public void refreshBalance() {
+        if (balanceLabel != null) {
+            balanceLabel.setText("Solde : " + String.format("%.2f", App.getCurrentUser().getBalance()) + " €");
+        }
+    }
+
+    public void refreshLibraryView() {
+        setActive(btnLibrary);
+        showLibrary();
+    }
+
+    public void refreshCatalogView() {
+        setActive(btnCatalog);
+        showCatalog();
+    }
+
     // ── Content switching ─────────────────────────────────────────────────────
 
     private void setContent(Node content) {
@@ -126,4 +172,3 @@ public class MainView {
         setContent(new HelpView().build());
     }
 }
-

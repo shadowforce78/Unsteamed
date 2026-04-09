@@ -17,13 +17,17 @@ public class User {
     private Date registrationDate;
     private List<Integer> games;
     private Map<Integer, Integer> progression;
+    private Map<Integer, Double> playtime;
+    private double balance;
 
     public User() {
         this.games = new ArrayList<>();
         this.progression = new HashMap<>();
+        this.playtime = new HashMap<>();
+        this.balance = 1000.0;
     }
 
-    public User(int id, String username, String email, String password, Date registrationDate, List<Integer> games, Map<Integer, Integer> progression) {
+    public User(int id, String username, String email, String password, Date registrationDate, List<Integer> games, Map<Integer, Integer> progression, Map<Integer, Double> playtime, double balance) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -31,6 +35,8 @@ public class User {
         this.registrationDate = registrationDate;
         this.games = games != null ? games : new ArrayList<>();
         this.progression = progression != null ? progression : new HashMap<>();
+        this.playtime = playtime != null ? playtime : new HashMap<>();
+        this.balance = balance;
     }
 
     public int getId() {
@@ -71,6 +77,22 @@ public class User {
         this.progression = progression;
     }
 
+    public Map<Integer, Double> getPlaytime() {
+        return playtime;
+    }
+
+    public void setPlaytime(Map<Integer, Double> playtime) {
+        this.playtime = playtime;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
     public Date getRegistrationDate() {
         return registrationDate;
     }
@@ -107,10 +129,47 @@ public class User {
 
     public void updateProgression(Integer gameID, Integer level) {
          if (games.contains(gameID)) {
+             if (level < 0) level = 0;
+             if (level > 100) level = 100;
              progression.put(gameID, level);
          }
     }
 
+    public void updatePlaytime(Integer gameID, Double hours) {
+        if (games.contains(gameID)) {
+            if (hours < 0) hours = 0.0;
+            playtime.put(gameID, hours);
+        }
+    }
+
+    public void addBalance(double amount) {
+        if(amount > 0) {
+            this.balance += amount;
+        }
+    }
+
+    public boolean deductBalance(double amount) {
+        if(this.balance >= amount) {
+            this.balance -= amount;
+            return true;
+        }
+        return false;
+    }
+
+    public boolean refundGame(Game game) {
+        Integer gameID = game.getId();
+        if (games.contains(gameID)) {
+            Double hours = playtime.getOrDefault(gameID, 0.0);
+            if (hours < 2.0) {
+                games.remove(gameID);
+                progression.remove(gameID);
+                playtime.remove(gameID);
+                addBalance(game.getPrice() != null ? game.getPrice() : 0.0);
+                return true;
+            }
+        }
+        return false;
+    }
 
     @Override
     public String toString() {
@@ -121,6 +180,8 @@ public class User {
                 ", registrationDate=" + registrationDate +
                 ", games=" + games +
                 ", progression=" + progression +
+                ", playtime=" + playtime +
+                ", balance=" + balance +
                 '}';
     }
 }

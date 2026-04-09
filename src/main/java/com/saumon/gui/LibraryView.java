@@ -98,10 +98,14 @@ public class LibraryView {
         right.setMinWidth(200);
 
         Integer lvl = user.getProgression().get(game.getId());
-        Label levelLabel = new Label("Niveau : " + (lvl != null ? lvl : "Non commencé"));
+        Label levelLabel = new Label("Progression : " + (lvl != null ? lvl : "0") + " %");
         levelLabel.setStyle("-fx-text-fill: " + App.PRICE_CLR + "; -fx-font-size: 14; -fx-font-weight: bold;");
 
-        Button updateBtn = new Button("Mettre a jour la progression");
+        Double hours = user.getPlaytime().getOrDefault(game.getId(), 0.0);
+        Label playtimeLabel = new Label("Temps de jeu : " + hours + " h");
+        playtimeLabel.setStyle("-fx-text-fill: " + App.DIM + "; -fx-font-size: 12;");
+
+        Button updateBtn = new Button("Mettre à jour");
         updateBtn.setPrefWidth(200);
         String btnStyle = "-fx-background-color: " + App.ACCENT + "; -fx-text-fill: white; "
                         + "-fx-font-size: 12; -fx-padding: 7 14; -fx-background-radius: 5; -fx-cursor: hand;";
@@ -110,52 +114,80 @@ public class LibraryView {
         updateBtn.setOnMouseExited(e  -> updateBtn.setStyle(btnStyle));
 
         updateBtn.setOnAction(e -> {
-            Optional<Integer> result = showProgressionDialog(game, lvl);
-            result.ifPresent(newLevel -> {
+            showUpdateDialog(game, lvl, hours).ifPresent(result -> {
+                int newLevel = result.getKey();
+                double newHours = result.getValue();
                 App.userRepo.updateUserProgression(user, game.getId(), newLevel);
-                levelLabel.setText("Niveau : " + newLevel);
+                App.userRepo.updateUserPlaytime(user, game.getId(), newHours);
+                levelLabel.setText("Progression : " + newLevel + " %");
+                playtimeLabel.setText("Temps de jeu : " + newHours + " h");
             });
         });
 
-        right.getChildren().addAll(levelLabel, updateBtn);
+        Button refundBtn = new Button("Rembourser");
+        refundBtn.setPrefWidth(200);
+        String refundBtnStyle = "-fx-background-color: transparent; -fx-border-color: #ff6b6b; -fx-text-fill: #ff6b6b; "
+                              + "-fx-font-size: 12; -fx-padding: 6 13; -fx-background-radius: 5; -fx-border-radius: 5; -fx-cursor: hand;";
+        refundBtn.setStyle(refundBtnStyle);
+        refundBtn.setOnMouseEntered(e -> refundBtn.setStyle(refundBtnStyle.replace("transparent", "#2a1e1e")));
+        refundBtn.setOnMouseExited(e  -> refundBtn.setStyle(refundBtnStyle));
+        
+        refundBtn.setOnAction(e -> {
+            boolean success = App.userRepo.refundGame(user, game);
+            if (success) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Jeu remboursé avec succès.");
+                alert.showAndWait();
+
+                if (App.getMainView() != null) {
+                    App.getMainView().refreshBalance();
+                    App.getMainView().refreshLibraryView();
+                }
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Impossible de rembourser (temps de jeu >= 2h).");
+                alert.show();
+            }
+        });
+
+        right.getChildren().addAll(levelLabel, playtimeLabel, updateBtn, refundBtn);
 
         card.getChildren().addAll(strip, info, right);
         return card;
     }
 
-    private Optional<Integer> showProgressionDialog(Game game, Integer current) {
-        Dialog<Integer> dialog = new Dialog<>();
-        dialog.setTitle("Progression");
-        dialog.setHeaderText("Mettre a jour la progression pour :\n" + game.getName());
+    private Optional<javafx.util.Pair<Integer, Double>> showUpdateDialog(Game game, Integer currentLevel, Double currentHours) {
+        Dialog<javafx.util.Pair<Integer, Double>> dialog = new Dialog<>();
+        dialog.setTitle("Mettre à jour");
+        dialog.setHeaderText("Progression & Temps de jeu :\n" + game.getName());
 
         ButtonType confirmBtn = new ButtonType("Confirmer", ButtonBar.ButtonData.OK_DONE);
         ButtonType cancelBtn  = new ButtonType("Annuler",   ButtonBar.ButtonData.CANCEL_CLOSE);
         dialog.getDialogPane().getButtonTypes().addAll(confirmBtn, cancelBtn);
 
-        Spinner<Integer> spinner = new Spinner<>(0, 9999, current != null ? current : 0, 1);
-        spinner.setEditable(true);
-        spinner.setPrefWidth(130);
-        spinner.setStyle("-fx-font-size: 14;");
+        Spinner<Integer> lvlSpinner = new Spinner<>(0, 100, currentLevel != null ? currentLevel : 0, 1);
+        lvlSpinner.setEditable(true);
+        lvlSpinner.setPrefWidth(130);
+
+        Spinner<Double> hoursSpinner = new Spinner<>(0.0, 9999.0, currentHours != null ? currentHours : 0.0, 0.5);
+        hoursSpinner.setEditable(true);
+        hoursSpinner.setPrefWidth(130);
 
         VBox content = new VBox(10,
-                new Label("Niveau actuel : " + (current != null ? current : "Non commencé")),
-                new Label("Nouveau niveau :"),
-                spinner);
+                new Label("Progression (%) :"), lvlSpinner,
+                new Label("Temps de jeu (h) :"), hoursSpinner);
         content.setPadding(new Insets(10));
         dialog.getDialogPane().setContent(content);
 
         dialog.setResultConverter(btn -> {
             if (btn == confirmBtn) {
-                spinner.commitValue();
-                return spinner.getValue();
+                lvlSpinner.commitValue();
+                hoursSpinner.commitValue();
+                return new javafx.util.Pair<>(lvlSpinner.getValue(), hoursSpinner.getValue());
             }
             return null;
         });
 
-        // Apply basic dark styling to dialog pane
         dialog.getDialogPane().setStyle("-fx-background-color: " + App.SIDEBAR + ";");
 
         return dialog.showAndWait();
     }
 }
-
