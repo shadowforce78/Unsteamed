@@ -42,6 +42,9 @@ public class Cli {
             case "--b":
                 buyGame(args);
                 break;
+            case "--r":
+                refundGameCLI(args);
+                break;
             case "--p":
                 updateProgression(args);
                 break;
@@ -62,6 +65,7 @@ public class Cli {
         System.out.println("  --a                                Show library");
         System.out.println("  --g                                Show game catalog");
         System.out.println("  --b <gameId>                       Buy/Add game (use comma for multiple IDs, e.g., --b 1,2,3)");
+        System.out.println("  --r <gameId>                       Refund a game (use comma for multiple IDs, e.g., --b 1,2,3)");
         System.out.println("  --p <gameId> <level>               Update progression");
         System.out.println("  --h                                Show help");
     }
@@ -192,6 +196,56 @@ public class Cli {
                     System.out.println("New balance: $" + user.getBalance());
                 } else {
                     System.out.println("Insufficient balance. You need $" + price + " but have $" + user.getBalance());
+                }
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid game ID.");
+        }
+    }
+
+    private static void refundGameCLI(String[] args) {
+        if (args.length < 2) {
+            System.out.println("Error: Missing arguments for --r. Usage: --r <gameId> (or comma-separated list of gameIds ex: --r 1,2,3)");
+            return;
+        }
+        if (args[1].contains(",")) {
+            String[] gameIds = args[1].split(",");
+            for (String gameIdStr : gameIds) {
+                try {
+                    int gameId = Integer.parseInt(gameIdStr.trim());
+                    refundGameCLI(new String[]{"--r", String.valueOf(gameId)});
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid game ID: " + gameIdStr);
+                }
+            }
+            return;
+        }
+
+        User user = getSessionUser();
+        if (user == null) return;
+
+        try {
+            int gameId = Integer.parseInt(args[1]);
+            Game game = gameRepository.getGameById(gameId);
+            if (game == null) {
+                System.out.println("Game not found.");
+                return;
+            }
+
+            if (!user.getGames().contains(gameId)) {
+                System.out.println("You don't own this game.");
+            } else {
+                Double hours = user.getPlaytime().getOrDefault(gameId, 0.0);
+                if (hours >= 2.0) {
+                    System.out.println("Cannot refund " + game.getName() + ". Playtime (" + hours + "h) is 2 hours or more.");
+                } else {
+                    boolean refunded = userRepository.refundGame(user, game);
+                    if (refunded) {
+                        System.out.println("Successfully refunded " + game.getName() + " for $" + game.getPrice() + "!");
+                        System.out.println("New balance: $" + user.getBalance());
+                    } else {
+                        System.out.println("Refund failed for " + game.getName() + ".");
+                    }
                 }
             }
         } catch (NumberFormatException e) {

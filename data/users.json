@@ -4,8 +4,8 @@
   "email" : "test",
   "password" : "test",
   "registrationDate" : 1775729942675,
-  "games" : [ ],
+  "games" : [ 1, 2 ],
   "progression" : { },
   "playtime" : { },
-  "balance" : 1000.0
+  "balance" : 900.02
 } ]
