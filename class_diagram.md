@@ -165,6 +165,7 @@ classDiagram
         -showLibrary()$ void
         -showCatalog()$ void
         -buyGame(args : String[])$ void
+        -refundGameCLI(args : String[])$ void
         -updateProgression(args : String[])$ void
     }
 
