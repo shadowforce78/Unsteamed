@@ -146,7 +146,7 @@ classDiagram
         +updateUserPlaytime(user : User, gameId : int, hours : double) void
         +addUserBalance(user : User, amount : double) void
         +deductUserBalance(user : User, amount : double) boolean
-        +refundGame(user : User, game : Game) boolean
+        +refundGame(user : User, array<game> : Game) boolean
     }
 
     %% ════════════════════════════════════════════════════════════════════
