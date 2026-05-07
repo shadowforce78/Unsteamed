@@ -13,12 +13,13 @@ public class GameRepository {
     private List<Game> games = new ArrayList<>();
     private final String DATA_FILE = "data/games.json";
 
-    public GameRepository(){
+    public GameRepository() {
         ObjectMapper mapper = new ObjectMapper();
         try {
             File file = new File(DATA_FILE);
             if (file.exists()) {
-                games = mapper.readValue(file, new TypeReference<List<Game>>(){});
+                games = mapper.readValue(file, new TypeReference<List<Game>>() {
+                });
             } else {
                 System.out.println("Data file not found: " + DATA_FILE);
             }
@@ -31,14 +32,14 @@ public class GameRepository {
         return games;
     }
 
-        public void saveGames() {
-            ObjectMapper mapper = new ObjectMapper();
-            try {
-                mapper.writerWithDefaultPrettyPrinter().writeValue(new File(DATA_FILE), games);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+    public void saveGames() {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            mapper.writerWithDefaultPrettyPrinter().writeValue(new File(DATA_FILE), games);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+    }
 
     public void addGame(Game newGame) {
         int newId = games.size() + 1; // Simple ID generation strategy

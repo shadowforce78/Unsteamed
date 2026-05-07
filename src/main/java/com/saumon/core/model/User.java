@@ -1,13 +1,13 @@
 package com.saumon.core.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.saumon.core.repository.GameRepository;
-
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.saumon.core.repository.GameRepository;
 
 public class User {
     private int id;
@@ -27,7 +27,8 @@ public class User {
         this.balance = 1000.0;
     }
 
-    public User(int id, String username, String email, String password, Date registrationDate, List<Integer> games, Map<Integer, Integer> progression, Map<Integer, Double> playtime, double balance) {
+    public User(int id, String username, String email, String password, Date registrationDate, List<Integer> games,
+            Map<Integer, Integer> progression, Map<Integer, Double> playtime, double balance) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -128,28 +129,31 @@ public class User {
     }
 
     public void updateProgression(Integer gameID, Integer level) {
-         if (games.contains(gameID)) {
-             if (level < 0) level = 0;
-             if (level > 100) level = 100;
-             progression.put(gameID, level);
-         }
+        if (games.contains(gameID)) {
+            if (level < 0)
+                level = 0;
+            if (level > 100)
+                level = 100;
+            progression.put(gameID, level);
+        }
     }
 
     public void updatePlaytime(Integer gameID, Double hours) {
         if (games.contains(gameID)) {
-            if (hours < 0) hours = 0.0;
+            if (hours < 0)
+                hours = 0.0;
             playtime.put(gameID, hours);
         }
     }
 
     public void addBalance(double amount) {
-        if(amount > 0) {
+        if (amount > 0) {
             this.balance += amount;
         }
     }
 
     public boolean deductBalance(double amount) {
-        if(this.balance >= amount) {
+        if (this.balance >= amount) {
             this.balance -= amount;
             return true;
         }

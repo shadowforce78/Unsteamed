@@ -40,6 +40,7 @@ public class Studio {
                 .toList();
     }
 
+    @Override
     public String toString() {
         return "{id=" + id + ", name='" + name + "', imageUrl='" + imageUrl + "', games=" + gamesID + "}";
     }

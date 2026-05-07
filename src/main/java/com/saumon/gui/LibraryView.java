@@ -1,16 +1,26 @@
 package com.saumon.gui;
 
+import java.util.List;
+import java.util.Optional;
+
 import com.saumon.core.model.Game;
 import com.saumon.core.model.Studio;
 import com.saumon.core.model.User;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
-
-import java.util.List;
-import java.util.Optional;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Spinner;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 
 public class LibraryView {
 
@@ -42,14 +52,16 @@ public class LibraryView {
         list.setPadding(new Insets(20, 28, 20, 28));
 
         if (gameIds.isEmpty()) {
-            Label empty = new Label("Vous ne possedez aucun jeu pour l'instant.\nRendez-vous dans le catalogue pour acheter des jeux !");
+            Label empty = new Label(
+                    "Vous ne possedez aucun jeu pour l'instant.\nRendez-vous dans le catalogue pour acheter des jeux !");
             empty.setStyle("-fx-text-fill: " + App.DIM + "; -fx-font-size: 14;");
             empty.setWrapText(true);
             list.getChildren().add(empty);
         } else {
             for (Integer gid : gameIds) {
                 Game game = App.gameRepo.getGameById(gid);
-                if (game != null) list.getChildren().add(buildGameCard(game, user));
+                if (game != null)
+                    list.getChildren().add(buildGameCard(game, user));
             }
         }
 
@@ -69,8 +81,9 @@ public class LibraryView {
         card.setStyle("-fx-background-color: " + App.CARD + "; -fx-background-radius: 8;");
         card.setAlignment(Pos.CENTER_LEFT);
 
-        card.setOnMouseEntered(e -> card.setStyle("-fx-background-color: " + App.CARD_HVR + "; -fx-background-radius: 8;"));
-        card.setOnMouseExited(e  -> card.setStyle("-fx-background-color: " + App.CARD   + "; -fx-background-radius: 8;"));
+        card.setOnMouseEntered(
+                e -> card.setStyle("-fx-background-color: " + App.CARD_HVR + "; -fx-background-radius: 8;"));
+        card.setOnMouseExited(e -> card.setStyle("-fx-background-color: " + App.CARD + "; -fx-background-radius: 8;"));
 
         // ── Left icon strip ─────────────────────────────────────────────────
         VBox strip = new VBox();
@@ -108,10 +121,10 @@ public class LibraryView {
         Button updateBtn = new Button("Mettre à jour");
         updateBtn.setPrefWidth(200);
         String btnStyle = "-fx-background-color: " + App.ACCENT + "; -fx-text-fill: white; "
-                        + "-fx-font-size: 12; -fx-padding: 7 14; -fx-background-radius: 5; -fx-cursor: hand;";
+                + "-fx-font-size: 12; -fx-padding: 7 14; -fx-background-radius: 5; -fx-cursor: hand;";
         updateBtn.setStyle(btnStyle);
         updateBtn.setOnMouseEntered(e -> updateBtn.setStyle(btnStyle.replace(App.ACCENT, "#3ab0ff")));
-        updateBtn.setOnMouseExited(e  -> updateBtn.setStyle(btnStyle));
+        updateBtn.setOnMouseExited(e -> updateBtn.setStyle(btnStyle));
 
         updateBtn.setOnAction(e -> {
             showUpdateDialog(game, lvl, hours).ifPresent(result -> {
@@ -127,11 +140,11 @@ public class LibraryView {
         Button refundBtn = new Button("Rembourser");
         refundBtn.setPrefWidth(200);
         String refundBtnStyle = "-fx-background-color: transparent; -fx-border-color: #ff6b6b; -fx-text-fill: #ff6b6b; "
-                              + "-fx-font-size: 12; -fx-padding: 6 13; -fx-background-radius: 5; -fx-border-radius: 5; -fx-cursor: hand;";
+                + "-fx-font-size: 12; -fx-padding: 6 13; -fx-background-radius: 5; -fx-border-radius: 5; -fx-cursor: hand;";
         refundBtn.setStyle(refundBtnStyle);
         refundBtn.setOnMouseEntered(e -> refundBtn.setStyle(refundBtnStyle.replace("transparent", "#2a1e1e")));
-        refundBtn.setOnMouseExited(e  -> refundBtn.setStyle(refundBtnStyle));
-        
+        refundBtn.setOnMouseExited(e -> refundBtn.setStyle(refundBtnStyle));
+
         refundBtn.setOnAction(e -> {
             boolean success = App.userRepo.refundGame(user, game);
             if (success) {
@@ -154,13 +167,14 @@ public class LibraryView {
         return card;
     }
 
-    private Optional<javafx.util.Pair<Integer, Double>> showUpdateDialog(Game game, Integer currentLevel, Double currentHours) {
+    private Optional<javafx.util.Pair<Integer, Double>> showUpdateDialog(Game game, Integer currentLevel,
+            Double currentHours) {
         Dialog<javafx.util.Pair<Integer, Double>> dialog = new Dialog<>();
         dialog.setTitle("Mettre à jour");
         dialog.setHeaderText("Progression & Temps de jeu :\n" + game.getName());
 
         ButtonType confirmBtn = new ButtonType("Confirmer", ButtonBar.ButtonData.OK_DONE);
-        ButtonType cancelBtn  = new ButtonType("Annuler",   ButtonBar.ButtonData.CANCEL_CLOSE);
+        ButtonType cancelBtn = new ButtonType("Annuler", ButtonBar.ButtonData.CANCEL_CLOSE);
         dialog.getDialogPane().getButtonTypes().addAll(confirmBtn, cancelBtn);
 
         Spinner<Integer> lvlSpinner = new Spinner<>(0, 100, currentLevel != null ? currentLevel : 0, 1);

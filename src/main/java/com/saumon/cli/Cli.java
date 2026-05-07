@@ -64,8 +64,10 @@ public class Cli {
         System.out.println("  --i <email> <password>             Login");
         System.out.println("  --a                                Show library");
         System.out.println("  --g                                Show game catalog");
-        System.out.println("  --b <gameId>                       Buy/Add game (use comma for multiple IDs, e.g., --b 1,2,3)");
-        System.out.println("  --r <gameId>                       Refund a game (use comma for multiple IDs, e.g., --b 1,2,3)");
+        System.out.println(
+                "  --b <gameId>                       Buy/Add game (use comma for multiple IDs, e.g., --b 1,2,3)");
+        System.out.println(
+                "  --r <gameId>                       Refund a game (use comma for multiple IDs, e.g., --b 1,2,3)");
         System.out.println("  --p <gameId> <level>               Update progression");
         System.out.println("  --h                                Show help");
     }
@@ -83,7 +85,8 @@ public class Cli {
             System.out.println("Error: User with this email already exists.");
             return;
         }
-        User newUser = new User(0, username, email, password, new Date(), new ArrayList<Integer>(), new HashMap<Integer, Integer>(), new HashMap<Integer, Double>(), 1000.0);
+        User newUser = new User(0, username, email, password, new Date(), new ArrayList<Integer>(),
+                new HashMap<Integer, Integer>(), new HashMap<Integer, Double>(), 1000.0);
         userRepository.registerUser(newUser);
         System.out.println("Account created successfully!");
     }
@@ -131,7 +134,8 @@ public class Cli {
 
     private static void showLibrary() {
         User user = getSessionUser();
-        if (user == null) return;
+        if (user == null)
+            return;
 
         System.out.println("Library for " + user.getUsername() + ":");
         List<Integer> gameIds = user.getGames();
@@ -142,13 +146,14 @@ public class Cli {
                 Game game = gameRepository.getGameById(id);
                 if (game != null) {
                     Integer progression = user.getProgression().get(id);
-                    System.out.println("- " + game.getName() + " (ID: " + game.getId() + ")" + (progression != null ? " [Level " + progression + "]" : ""));
+                    System.out.println("- " + game.getName() + " (ID: " + game.getId() + ")"
+                            + (progression != null ? " [Level " + progression + "]" : ""));
                 }
             }
         }
     }
 
-    private static  void showCatalog() {
+    private static void showCatalog() {
         System.out.println("Available Games:");
         for (Game game : gameRepository.getAllGames()) {
             System.out.println(game.getId() + ". " + game.getName() + " - $" + game.getPrice());
@@ -157,7 +162,8 @@ public class Cli {
 
     private static void buyGame(String[] args) {
         if (args.length < 2) {
-            System.out.println("Error: Missing arguments for --b. Usage: --b <gameId> (or comma-separated list of gameIds ex: --b 1,2,3)");
+            System.out.println(
+                    "Error: Missing arguments for --b. Usage: --b <gameId> (or comma-separated list of gameIds ex: --b 1,2,3)");
             return;
         }
         // Split args if there are multiple game IDs provided (1,2,3)
@@ -166,7 +172,7 @@ public class Cli {
             for (String gameIdStr : gameIds) {
                 try {
                     int gameId = Integer.parseInt(gameIdStr.trim());
-                    buyGame(new String[]{"--b", String.valueOf(gameId)});
+                    buyGame(new String[] { "--b", String.valueOf(gameId) });
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid game ID: " + gameIdStr);
                 }
@@ -175,7 +181,8 @@ public class Cli {
         }
 
         User user = getSessionUser();
-        if (user == null) return;
+        if (user == null)
+            return;
 
         try {
             int gameId = Integer.parseInt(args[1]);
@@ -205,7 +212,8 @@ public class Cli {
 
     private static void refundGameCLI(String[] args) {
         if (args.length < 2) {
-            System.out.println("Error: Missing arguments for --r. Usage: --r <gameId> (or comma-separated list of gameIds ex: --r 1,2,3)");
+            System.out.println(
+                    "Error: Missing arguments for --r. Usage: --r <gameId> (or comma-separated list of gameIds ex: --r 1,2,3)");
             return;
         }
         if (args[1].contains(",")) {
@@ -213,7 +221,7 @@ public class Cli {
             for (String gameIdStr : gameIds) {
                 try {
                     int gameId = Integer.parseInt(gameIdStr.trim());
-                    refundGameCLI(new String[]{"--r", String.valueOf(gameId)});
+                    refundGameCLI(new String[] { "--r", String.valueOf(gameId) });
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid game ID: " + gameIdStr);
                 }
@@ -222,7 +230,8 @@ public class Cli {
         }
 
         User user = getSessionUser();
-        if (user == null) return;
+        if (user == null)
+            return;
 
         try {
             int gameId = Integer.parseInt(args[1]);
@@ -237,11 +246,13 @@ public class Cli {
             } else {
                 Double hours = user.getPlaytime().getOrDefault(gameId, 0.0);
                 if (hours >= 2.0) {
-                    System.out.println("Cannot refund " + game.getName() + ". Playtime (" + hours + "h) is 2 hours or more.");
+                    System.out.println(
+                            "Cannot refund " + game.getName() + ". Playtime (" + hours + "h) is 2 hours or more.");
                 } else {
                     boolean refunded = userRepository.refundGame(user, game);
                     if (refunded) {
-                        System.out.println("Successfully refunded " + game.getName() + " for $" + game.getPrice() + "!");
+                        System.out
+                                .println("Successfully refunded " + game.getName() + " for $" + game.getPrice() + "!");
                         System.out.println("New balance: $" + user.getBalance());
                     } else {
                         System.out.println("Refund failed for " + game.getName() + ".");
@@ -259,7 +270,8 @@ public class Cli {
             return;
         }
         User user = getSessionUser();
-        if (user == null) return;
+        if (user == null)
+            return;
 
         try {
             int gameId = Integer.parseInt(args[1]);

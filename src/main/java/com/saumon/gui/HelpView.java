@@ -3,12 +3,16 @@ package com.saumon.gui;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 
 public class HelpView {
 
-    private record Feature(String cmd, String label, String desc) {}
+    private record Feature(String cmd, String label, String desc) {
+    }
 
     public Parent build() {
         VBox root = new VBox();
@@ -27,18 +31,25 @@ public class HelpView {
         VBox content = new VBox(16);
         content.setPadding(new Insets(24, 28, 28, 28));
 
-        Label intro = new Label("Bienvenue sur Unsteamed ! Voici les fonctionnalites disponibles depuis la barre laterale :");
+        Label intro = new Label(
+                "Bienvenue sur Unsteamed ! Voici les fonctionnalites disponibles depuis la barre laterale :");
         intro.setStyle("-fx-text-fill: " + App.DIM + "; -fx-font-size: 14;");
         intro.setWrapText(true);
         content.getChildren().add(intro);
 
         Feature[] features = {
-            new Feature("--g", "Catalogue de jeux",  "Parcourez tous les jeux disponibles et achetez ceux qui vous interessent."),
-            new Feature("--a", "Ma Bibliotheque",     "Consultez les jeux que vous possedez et mettez a jour votre progression."),
-            new Feature("--c", "Creation de compte",  "Creez un nouveau compte avec un nom d'utilisateur, un email et un mot de passe."),
-            new Feature("--i", "Connexion",           "Connectez-vous a votre compte existant avec votre email et mot de passe."),
-            new Feature("--b", "Achat de jeu",        "Ajoutez un jeu a votre bibliotheque depuis la fiche du jeu dans le catalogue."),
-            new Feature("--p", "Mise a jour progression", "Definissez votre niveau actuel sur un jeu de votre bibliotheque."),
+                new Feature("--g", "Catalogue de jeux",
+                        "Parcourez tous les jeux disponibles et achetez ceux qui vous interessent."),
+                new Feature("--a", "Ma Bibliotheque",
+                        "Consultez les jeux que vous possedez et mettez a jour votre progression."),
+                new Feature("--c", "Creation de compte",
+                        "Creez un nouveau compte avec un nom d'utilisateur, un email et un mot de passe."),
+                new Feature("--i", "Connexion",
+                        "Connectez-vous a votre compte existant avec votre email et mot de passe."),
+                new Feature("--b", "Achat de jeu",
+                        "Ajoutez un jeu a votre bibliotheque depuis la fiche du jeu dans le catalogue."),
+                new Feature("--p", "Mise a jour progression",
+                        "Definissez votre niveau actuel sur un jeu de votre bibliotheque."),
         };
 
         for (Feature f : features) {
@@ -54,15 +65,14 @@ public class HelpView {
         cliTitle.setStyle("-fx-text-fill: " + App.ACCENT + "; -fx-font-size: 14; -fx-font-weight: bold;");
 
         Label cliDesc = new Label(
-            "L'application supporte egalement un mode ligne de commande :\n" +
-            "  --c <username> <email> <password>   Creation de compte\n" +
-            "  --i <email> <password>              Connexion\n" +
-            "  --a                                 Bibliotheque\n" +
-            "  --g                                 Catalogue\n" +
-            "  --b <gameId>                        Achat (ex: --b 1,2,3)\n" +
-            "  --p <gameId> <level>                Progression\n" +
-            "  --h                                 Aide"
-        );
+                "L'application supporte egalement un mode ligne de commande :\n" +
+                        "  --c <username> <email> <password>   Creation de compte\n" +
+                        "  --i <email> <password>              Connexion\n" +
+                        "  --a                                 Bibliotheque\n" +
+                        "  --g                                 Catalogue\n" +
+                        "  --b <gameId>                        Achat (ex: --b 1,2,3)\n" +
+                        "  --p <gameId> <level>                Progression\n" +
+                        "  --h                                 Aide");
         cliDesc.setStyle("-fx-text-fill: " + App.TEXT + "; -fx-font-size: 12; -fx-font-family: monospace;");
         cliNote.getChildren().addAll(cliTitle, cliDesc);
         content.getChildren().add(cliNote);
@@ -93,7 +103,7 @@ public class HelpView {
         tag.setMinWidth(70);
         tag.setAlignment(Pos.CENTER);
         tag.setStyle("-fx-background-color: #1e3a52; -fx-text-fill: " + App.ACCENT
-                   + "; -fx-font-size: 12; -fx-font-family: monospace; -fx-padding: 4 10; -fx-background-radius: 5;");
+                + "; -fx-font-size: 12; -fx-font-family: monospace; -fx-padding: 4 10; -fx-background-radius: 5;");
 
         // Description
         VBox info = new VBox(3);
@@ -109,4 +119,3 @@ public class HelpView {
         return card;
     }
 }
-

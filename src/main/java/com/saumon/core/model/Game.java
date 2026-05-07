@@ -1,7 +1,7 @@
 package com.saumon.core.model;
 
-import java.util.List;
 import java.util.Date;
+import java.util.List;
 
 public class Game {
     private int id;
@@ -18,7 +18,8 @@ public class Game {
     public Game() {
     }
 
-    public Game(int id, String name, Double price, List<String> genres, String description,Date releaseDate,String imageUrl, Boolean isMultiplayer, int studioID, Boolean subscription) {
+    public Game(int id, String name, Double price, List<String> genres, String description, Date releaseDate,
+            String imageUrl, Boolean isMultiplayer, int studioID, Boolean subscription) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -34,6 +35,7 @@ public class Game {
     public int getId() {
         return id;
     }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -41,6 +43,7 @@ public class Game {
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -48,6 +51,7 @@ public class Game {
     public Double getPrice() {
         return price;
     }
+
     public void setPrice(Double price) {
         this.price = price;
     }
@@ -55,12 +59,15 @@ public class Game {
     public List<String> getGenres() {
         return genres;
     }
+
     public void addGenres(List<String> genres) {
-this.genres.addAll(genres);    }
+        this.genres.addAll(genres);
+    }
 
     public String getDescription() {
         return description;
     }
+
     public void setDescription(String description) {
         this.description = description;
     }
@@ -68,6 +75,7 @@ this.genres.addAll(genres);    }
     public Date getReleaseDate() {
         return releaseDate;
     }
+
     public void setReleaseDate(Date releaseDate) {
         this.releaseDate = releaseDate;
     }
@@ -75,6 +83,7 @@ this.genres.addAll(genres);    }
     public String getImageUrl() {
         return imageUrl;
     }
+
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
@@ -82,13 +91,15 @@ this.genres.addAll(genres);    }
     public Boolean getIsMultiplayer() {
         return isMultiplayer;
     }
-        public void setIsMultiplayer(Boolean isMultiplayer) {
-            this.isMultiplayer = isMultiplayer;
-        }
+
+    public void setIsMultiplayer(Boolean isMultiplayer) {
+        this.isMultiplayer = isMultiplayer;
+    }
 
     public int getStudioID() {
         return studioID;
     }
+
     public void setStudioID(int studioID) {
         this.studioID = studioID;
     }
@@ -96,6 +107,7 @@ this.genres.addAll(genres);    }
     public Boolean getSubscription() {
         return subscription;
     }
+
     public void setSubscription(Boolean subscription) {
         this.subscription = subscription;
     }

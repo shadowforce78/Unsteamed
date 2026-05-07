@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+    <title>Unsteamed — Diagramme de Classes</title>
+    <style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0d1117;color:#c9d1d9;font-family:'Segoe UI',system-ui,sans-serif;overflow:hidden;height:100vh}
+#toolbar{position:fixed;top:0;left:0;right:0;height:48px;background:#161b22;border-bottom:1px solid #30363d;display:flex;align-items:center;padding:0 20px;gap:16px;z-index:100}
+#toolbar h1{font-size:16px;color:#1a9fff;font-weight:700}
+#toolbar .info{font-size:12px;color:#8b949e}
+#toolbar button{background:#21262d;color:#c9d1d9;border:1px solid #30363d;padding:4px 12px;border-radius:6px;cursor:pointer;font-size:12px}
+#toolbar button:hover{background:#30363d}
+#canvas{position:absolute;top:48px;left:0;right:0;bottom:0;overflow:hidden;cursor:grab}
+#canvas.dragging{cursor:grabbing}
+#world{position:absolute;transform-origin:0 0;transition:none}
+.pkg{position:absolute;border-radius:12px;border:1px solid;padding:12px;min-width:100px}
+.pkg-label{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;opacity:.7}
+.cls{position:absolute;background:#161b22;border:1px solid #30363d;border-radius:8px;min-width:200px;box-shadow:0 2px 8px rgba(0,0,0,.4);transition:box-shadow .2s,border-color .2s;overflow:hidden}
+.cls:hover{box-shadow:0 4px 20px rgba(26,159,255,.15);border-color:#1a9fff}
+.cls-header{padding:8px 12px;font-weight:700;font-size:13px;border-bottom:1px solid #30363d;display:flex;align-items:center;gap:6px;cursor:pointer;user-select:none}
+.cls-header .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.cls-header .stereotype{font-size:10px;color:#8b949e;font-weight:400;font-style:italic}
+.cls-section{border-bottom:1px solid #21262d}
+.cls-section:last-child{border-bottom:none}
+.cls-section-title{font-size:10px;color:#8b949e;padding:4px 12px 2px;text-transform:uppercase;letter-spacing:.5px;cursor:pointer;user-select:none;display:flex;justify-content:space-between}
+.cls-section-title:hover{color:#c9d1d9}
+.cls-section-title::after{content:'▾';font-size:9px}
+.cls-section.collapsed .cls-section-title::after{content:'▸'}
+.cls-section.collapsed .cls-items{display:none}
+.cls-items{padding:2px 0}
+.cls-item{font-size:11px;padding:1px 12px;font-family:'Fira Code','Cascadia Code',monospace;white-space:nowrap;line-height:1.5}
+.cls-item .vis{color:#8b949e;margin-right:2px}
+.cls-item .type{color:#79c0ff}
+.cls-item .name{color:#c9d1d9}
+.cls-item .static{font-style:italic;text-decoration:underline}
+.cls-item .param{color:#8b949e}
+svg.relations{position:absolute;top:0;left:0;pointer-events:none;overflow:visible}
+svg.relations line,svg.relations path{stroke-width:1.5;fill:none}
+svg.relations .dep{stroke:#30363d;stroke-dasharray:6,4}
+svg.relations .assoc{stroke:#58a6ff}
+svg.relations .compo{stroke:#3fb950}
+svg.relations .inherit{stroke:#d2a8ff}
+svg.relations marker path{stroke:none}
+.legend{position:fixed;bottom:16px;right:16px;background:#161b22;border:1px solid #30363d;border-radius:8px;padding:12px 16px;font-size:11px;z-index:100}
+.legend div{display:flex;align-items:center;gap:8px;margin:3px 0}
+.legend .swatch{width:20px;height:3px;border-radius:2px}
+</style>
+  </head>
+  <body>
+    <div id="toolbar">
+      <h1>UNSTEAMED</h1>
+      <span class="info">Diagramme de Classes — 14 classes · 4 packages</span>
+      <button onclick="resetView()">Recentrer</button>
+      <button onclick="toggleAll(true)">Tout replier</button>
+      <button onclick="toggleAll(false)">Tout déplier</button>
+      <span class="info" style="margin-left:auto">Scroll = Zoom · Clic+Drag =
+        Déplacer</span>
+    </div>
+    <div id="canvas">
+      <div id="world">
+        <svg class="relations" id="svg" width="4000" height="3000"></svg>
+      </div>
+    </div>
+    <div class="legend">
+      <div><span class="swatch" style="background:#d2a8ff"></span>
+        Héritage</div>
+      <div><span class="swatch" style="background:#58a6ff"></span>
+        Association</div>
+      <div><span class="swatch" style="background:#3fb950"></span>
+        Composition</div>
+      <div><span class="swatch"
+          style="background:#30363d;border-top:1px dashed #8b949e"></span>
+        Dépendance</div>
+    </div>
+    <script>
+const COLORS={model:{bg:'#1b2838',border:'#2a475e',dot:'#f0883e',label:'Modèles'},repo:{bg:'#1a2332',border:'#1f6feb',dot:'#1f6feb',label:'Repositories'},gui:{bg:'#1b2229',border:'#238636',dot:'#3fb950',label:'GUI (JavaFX)'},cli:{bg:'#221b2e',border:'#8957e5',dot:'#d2a8ff',label:'CLI'},entry:{bg:'#1e1e1e',border:'#30363d',dot:'#8b949e',label:'Entry Point'}};
+
+const classes=[
+// ── Models ──
+{id:'Game',pkg:'model',color:COLORS.model,x:60,y:60,
+attrs:['-id:int','-name:String','-price:Double','-genres:List<String>','-description:String','-releaseDate:Date','-imageUrl:String','-isMultiplayer:Boolean','-studioID:int','-subscription:Boolean'],
+methods:['+getId():int','+setId(int)','+getName():String','+setName(String)','+getPrice():Double','+setPrice(Double)','+getGenres():List<String>','+addGenres(List<String>)','+getDescription():String','+getReleaseDate():Date','+getImageUrl():String','+getIsMultiplayer():Boolean','+getStudioID():int','+getSubscription():Boolean','+toString():String']},
+
+{id:'Studio',pkg:'model',color:COLORS.model,x:380,y:60,
+attrs:['-id:int','-name:String','-imageUrl:String','-gamesID:List<Integer>'],
+methods:['+getId():int','+getName():String','+getImageUrl():String','+getGamesID():List<Integer>','+getGames(List<Game>):List<Game>','+toString():String']},
+
+{id:'User',pkg:'model',color:COLORS.model,x:700,y:60,
+attrs:['-id:int','-username:String','-email:String','-password:String','-registrationDate:Date','-games:List<Integer>','-progression:Map<Int,Int>','-playtime:Map<Int,Double>','-balance:double'],
+methods:['+getId():int','+setId(int)','+getUsername():String','+getEmail():String','+getPassword():String','+getGames():List<Integer>','+addGame(Integer)','+getProgression():Map','+updateProgression(Integer,Integer)','+getPlaytime():Map','+updatePlaytime(Integer,Double)','+getBalance():double','+setBalance(double)','+addBalance(double)','+deductBalance(double):boolean','+fetchGames():List<Game>','+refundGame(Game):boolean','+toString():String']},
+
+// ── Repositories ──
+{id:'GameRepository',pkg:'repo',color:COLORS.repo,x:60,y:680,
+attrs:['-games:List<Game>','-DATA_FILE:String'],
+methods:['+GameRepository()','+getAllGames():List<Game>','+getGameById(int):Game','+addGame(Game)','+saveGames()']},
+
+{id:'StudioRepository',pkg:'repo',color:COLORS.repo,x:380,y:680,
+attrs:['-studios:List<Studio>','-DATA_FILE:String'],
+methods:['+StudioRepository()','+getAllStudios():List<Studio>','+getStudioById(int):Studio','+getAllGamesID(Integer):List<Integer>','+getStudioIDByStudioName(String):int','+getAllGames(Integer):List<Game>']},
+
+{id:'UserRepository',pkg:'repo',color:COLORS.repo,x:700,y:680,
+attrs:['-users:List<User>','-DATA_FILE:String'],
+methods:['+UserRepository()','+getAllUsers():List<User>','+getUserById(int):User','+getUserByEmail(String):User','+registerUser(User)','+saveUsers()','+addGameToUser(User,Game)','+updateUserProgression(User,int,int)','+updateUserPlaytime(User,int,double)','+addUserBalance(User,double)','+deductUserBalance(User,double):boolean','+refundGame(User,Game):boolean']},
+
+// ── GUI ──
+{id:'App',pkg:'gui',color:COLORS.gui,x:1120,y:60,stereotype:'Application',
+attrs:['-primaryStage:Stage$','-currentUser:User$','-currentMainView:MainView$','+userRepo:UserRepository$','+gameRepo:GameRepository$','+studioRepo:StudioRepository$','+BG,SIDEBAR,CARD...:String$'],
+methods:['+start(Stage)','+showLogin()$','+showMain()$','+getMainView():MainView$','+getCurrentUser():User$','+setCurrentUser(User)$','+logout()$']},
+
+{id:'MainView',pkg:'gui',color:COLORS.gui,x:1120,y:420,
+attrs:['-root:BorderPane','-activeNav:Button','-balanceLabel:Label','-btnCatalog,btnLibrary,btnHelp:Button'],
+methods:['+build():Parent','-buildSidebar():VBox','-navBtn(String,boolean):Button','-applyNavStyle(Button,boolean)','-setActive(Button)','+refreshBalance()','+refreshLibraryView()','+refreshCatalogView()','-showCatalog()','-showLibrary()','-showHelp()']},
+
+{id:'LoginView',pkg:'gui',color:COLORS.gui,x:1440,y:60,
+attrs:['-loginMode:boolean'],
+methods:['+build():Parent','-applyTabStyle(Button,boolean)','-styleActionBtn(Button)','-styledField(String):TextField','-styledPass(String):PasswordField']},
+
+{id:'CatalogView',pkg:'gui',color:COLORS.gui,x:1440,y:320,
+methods:['+build():Parent','-buildGameCard(Game,User):HBox','-applyBuyStyle(Button,boolean)','-genreColor(List<String>):String']},
+
+{id:'LibraryView',pkg:'gui',color:COLORS.gui,x:1440,y:520,
+methods:['+build():Parent','-buildGameCard(Game,User):HBox','-showUpdateDialog(Game,Integer,Double):Optional']},
+
+{id:'HelpView',pkg:'gui',color:COLORS.gui,x:1440,y:680,
+methods:['+build():Parent','-buildFeatureCard(Feature):HBox']},
+
+{id:'Feature',pkg:'gui',color:COLORS.gui,x:1700,y:680,stereotype:'record',
+attrs:['-cmd:String','-label:String','-desc:String']},
+
+// ── CLI ──
+{id:'Cli',pkg:'cli',color:COLORS.cli,x:60,y:1100,
+attrs:['-SESSION_FILE:String$','-userRepository:UserRepository$','-gameRepository:GameRepository$'],
+methods:['+start(String[])$','-printHelp()$','-createAccount(String[])$','-login(String[])$','-getSessionUser():User$','-showLibrary()$','-showCatalog()$','-buyGame(String[])$','-updateProgression(String[])$']},
+
+// ── Entry ──
+{id:'Main',pkg:'entry',color:COLORS.entry,x:700,y:1100,
+methods:['+main(String[])$']}
+];
+
+const relations=[
+{from:'App',to:'LoginView',type:'dep',label:'crée'},
+{from:'App',to:'MainView',type:'dep',label:'crée'},
+{from:'MainView',to:'CatalogView',type:'dep',label:'crée'},
+{from:'MainView',to:'LibraryView',type:'dep',label:'crée'},
+{from:'MainView',to:'HelpView',type:'dep',label:'crée'},
+{from:'HelpView',to:'Feature',type:'compo',label:'inner'},
+{from:'GameRepository',to:'Game',type:'compo',label:'contient *'},
+{from:'StudioRepository',to:'Studio',type:'compo',label:'contient *'},
+{from:'UserRepository',to:'User',type:'compo',label:'contient *'},
+{from:'StudioRepository',to:'GameRepository',type:'dep',label:'utilise'},
+{from:'User',to:'GameRepository',type:'dep',label:'fetchGames()'},
+{from:'Game',to:'Studio',type:'assoc',label:'studioID'},
+{from:'User',to:'Game',type:'assoc',label:'games (IDs)'},
+{from:'App',to:'UserRepository',type:'assoc',label:'userRepo'},
+{from:'App',to:'GameRepository',type:'assoc',label:'gameRepo'},
+{from:'App',to:'StudioRepository',type:'assoc',label:'studioRepo'},
+{from:'Cli',to:'UserRepository',type:'assoc',label:'utilise'},
+{from:'Cli',to:'GameRepository',type:'assoc',label:'utilise'},
+{from:'Main',to:'App',type:'dep',label:'launch()'},
+];
+
+// ── Render ──
+const world=document.getElementById('world');
+const svg=document.getElementById('svg');
+const elMap={};
+
+function renderClass(c){
+  const el=document.createElement('div');
+  el.className='cls';
+  el.style.left=c.x+'px';el.style.top=c.y+'px';
+  el.style.borderColor=c.color.border;
+  let h=`<div class="cls-header"><span class="dot" style="background:${c.color.dot}"></span>${c.id}`;
+  if(c.stereotype)h+=` <span class="stereotype">«${c.stereotype}»</span>`;
+  h+=`</div>`;
+
+  if(c.attrs&&c.attrs.length){
+    h+=`<div class="cls-section"><div class="cls-section-title" onclick="this.parentElement.classList.toggle('collapsed')">Attributs (${c.attrs.length})</div><div class="cls-items">`;
+    c.attrs.forEach(a=>{
+      const vis=a[0];const rest=a.slice(1);
+      const vChar=vis==='+'?'+':vis==='-'?'-':'#';
+      const parts=rest.split(':');
+      h+=`<div class="cls-item"><span class="vis">${vChar}</span> <span class="name">${parts[0]}</span>${parts[1]?` : <span class="type">${parts[1]}</span>`:''}${a.includes('$')?' <span class="static">static</span>':''}</div>`;
+    });
+    h+=`</div></div>`;
+  }
+
+  if(c.methods&&c.methods.length){
+    h+=`<div class="cls-section"><div class="cls-section-title" onclick="this.parentElement.classList.toggle('collapsed')">Méthodes (${c.methods.length})</div><div class="cls-items">`;
+    c.methods.forEach(m=>{
+      const vis=m[0];const rest=m.slice(1);
+      const vChar=vis==='+'?'+':vis==='-'?'-':'#';
+      const paren=rest.indexOf('(');
+      const name=paren>-1?rest.substring(0,paren):rest;
+      const after=paren>-1?rest.substring(paren):'';
+      const retIdx=after.lastIndexOf(':');
+      const params=retIdx>-1?after.substring(0,retIdx):after;
+      const ret=retIdx>-1?after.substring(retIdx):'';
+      h+=`<div class="cls-item"><span class="vis">${vChar}</span> <span class="name">${name}</span><span class="param">${params}</span>${ret?` <span class="type">${ret}</span>`:''}</div>`;
+    });
+    h+=`</div></div>`;
+  }
+
+  el.innerHTML=h;
+  world.appendChild(el);
+  elMap[c.id]=el;
+}
+
+classes.forEach(renderClass);
+
+function getCenter(id){
+  const el=elMap[id];if(!el)return{x:0,y:0};
+  const x=parseFloat(el.style.left)+el.offsetWidth/2;
+  const y=parseFloat(el.style.top)+el.offsetHeight/2;
+  return{x,y,w:el.offsetWidth,h:el.offsetHeight,left:parseFloat(el.style.left),top:parseFloat(el.style.top)};
+}
+
+function getEdgePoint(box,target){
+  const dx=target.x-box.x,dy=target.y-box.y;
+  const absDx=Math.abs(dx),absDy=Math.abs(dy);
+  const hw=box.w/2,hh=box.h/2;
+  if(absDx*hh>absDy*hw){
+    const s=dx>0?1:-1;return{x:box.x+s*hw,y:box.y+dy*(hw/absDx)};
+  }else{
+    const s=dy>0?1:-1;return{x:box.x+dx*(hh/absDy),y:box.y+s*hh};
+  }
+}
+
+function drawRelations(){
+  svg.innerHTML='<defs>'+
+    '<marker id="arrow-dep" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="none" stroke="#8b949e" stroke-width="1"/></marker>'+
+    '<marker id="arrow-assoc" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="none" stroke="#58a6ff" stroke-width="1"/></marker>'+
+    '<marker id="diamond-compo" markerWidth="10" markerHeight="8" refX="0" refY="4" orient="auto"><path d="M0,4 L5,0 L10,4 L5,8 Z" fill="#3fb950"/></marker>'+
+    '<marker id="triangle-inherit" markerWidth="10" markerHeight="8" refX="10" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 Z" fill="none" stroke="#d2a8ff" stroke-width="1.5"/></marker>'+
+    '</defs>';
+
+  relations.forEach((r,i)=>{
+    const fromBox=getCenter(r.from),toBox=getCenter(r.to);
+    if(!fromBox.w||!toBox.w)return;
+    const from=getEdgePoint(fromBox,toBox);
+    const to=getEdgePoint(toBox,fromBox);
+
+    const cls=r.type;
+    let marker='';
+    if(cls==='dep')marker='marker-end="url(#arrow-dep)"';
+    if(cls==='assoc')marker='marker-end="url(#arrow-assoc)"';
+    if(cls==='compo')marker='marker-start="url(#diamond-compo)"';
+    if(cls==='inherit')marker='marker-end="url(#triangle-inherit)"';
+
+    // Offset parallel lines
+    const ox=(i%3-1)*4,oy=(i%3-1)*4;
+    svg.innerHTML+=`<line x1="${from.x+ox}" y1="${from.y+oy}" x2="${to.x+ox}" y2="${to.y+oy}" class="${cls}" ${marker}/>`;
+
+    // Label
+    const mx=(from.x+to.x)/2+ox,my=(from.y+to.y)/2+oy-6;
+    if(r.label)svg.innerHTML+=`<text x="${mx}" y="${my}" fill="#8b949e" font-size="9" text-anchor="middle" font-family="sans-serif">${r.label}</text>`;
+  });
+}
+
+setTimeout(drawRelations,50);
+
+// ── Zoom & Pan ──
+let scale=0.85,panX=-50,panY=-20;
+const canvas=document.getElementById('canvas');
+
+function applyTransform(){world.style.transform=`translate(${panX}px,${panY}px) scale(${scale})`}
+applyTransform();
+
+canvas.addEventListener('wheel',e=>{
+  e.preventDefault();
+  const rect=canvas.getBoundingClientRect();
+  const mx=e.clientX-rect.left,my=e.clientY-rect.top;
+  const oldScale=scale;
+  scale*=e.deltaY<0?1.1:0.9;
+  scale=Math.max(0.2,Math.min(3,scale));
+  panX=mx-(mx-panX)*(scale/oldScale);
+  panY=my-(my-panY)*(scale/oldScale);
+  applyTransform();
+},{passive:false});
+
+let dragging=false,startX,startY;
+canvas.addEventListener('mousedown',e=>{if(e.target===canvas||e.target===world||e.target===svg){dragging=true;startX=e.clientX-panX;startY=e.clientY-panY;canvas.classList.add('dragging')}});
+window.addEventListener('mousemove',e=>{if(dragging){panX=e.clientX-startX;panY=e.clientY-startY;applyTransform()}});
+window.addEventListener('mouseup',()=>{dragging=false;canvas.classList.remove('dragging')});
+
+function resetView(){scale=0.85;panX=-50;panY=-20;applyTransform()}
+function toggleAll(collapse){document.querySelectorAll('.cls-section').forEach(s=>{collapse?s.classList.add('collapsed'):s.classList.remove('collapsed')});setTimeout(drawRelations,10)}
+</script>
+  </body>
+</html>

@@ -4,8 +4,15 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextInputDialog;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 
 public class MainView {
 
@@ -48,7 +55,8 @@ public class MainView {
         balanceLabel.setStyle("-fx-text-fill: " + App.PRICE_CLR + "; -fx-font-size: 13; -fx-font-weight: bold;");
 
         Button btnAddBalance = new Button("+ Fonds");
-        btnAddBalance.setStyle("-fx-background-color: transparent; -fx-text-fill: " + App.ACCENT + "; -fx-cursor: hand; -fx-padding: 0;");
+        btnAddBalance.setStyle("-fx-background-color: transparent; -fx-text-fill: " + App.ACCENT
+                + "; -fx-cursor: hand; -fx-padding: 0;");
         btnAddBalance.setOnAction(e -> {
             TextInputDialog dialog = new TextInputDialog("10");
             dialog.setTitle("Ajouter des fonds");
@@ -77,11 +85,20 @@ public class MainView {
 
         btnCatalog = navBtn("  Catalogue de jeux", false);
         btnLibrary = navBtn("  Ma Bibliotheque", false);
-        btnHelp    = navBtn("  Aide", false);
+        btnHelp = navBtn("  Aide", false);
 
-        btnCatalog.setOnAction(e -> { setActive(btnCatalog); showCatalog(); });
-        btnLibrary.setOnAction(e -> { setActive(btnLibrary); showLibrary(); });
-        btnHelp.setOnAction(e    -> { setActive(btnHelp);    showHelp();    });
+        btnCatalog.setOnAction(e -> {
+            setActive(btnCatalog);
+            showCatalog();
+        });
+        btnLibrary.setOnAction(e -> {
+            setActive(btnLibrary);
+            showLibrary();
+        });
+        btnHelp.setOnAction(e -> {
+            setActive(btnHelp);
+            showHelp();
+        });
 
         nav.getChildren().addAll(btnCatalog, btnLibrary, btnHelp);
 
@@ -93,10 +110,10 @@ public class MainView {
         Button btnLogout = new Button("  Deconnexion");
         btnLogout.setMaxWidth(Double.MAX_VALUE);
         btnLogout.setStyle("-fx-background-color: transparent; -fx-text-fill: #ff6b6b; "
-                         + "-fx-font-size: 13; -fx-padding: 10 16; -fx-cursor: hand; "
-                         + "-fx-alignment: CENTER_LEFT; -fx-background-radius: 6;");
+                + "-fx-font-size: 13; -fx-padding: 10 16; -fx-cursor: hand; "
+                + "-fx-alignment: CENTER_LEFT; -fx-background-radius: 6;");
         btnLogout.setOnMouseEntered(e -> btnLogout.setStyle(btnLogout.getStyle().replace("transparent", "#2a1e1e")));
-        btnLogout.setOnMouseExited(e  -> btnLogout.setStyle(btnLogout.getStyle().replace("#2a1e1e", "transparent")));
+        btnLogout.setOnMouseExited(e -> btnLogout.setStyle(btnLogout.getStyle().replace("#2a1e1e", "transparent")));
         btnLogout.setOnAction(e -> App.logout());
 
         VBox bottom = new VBox(btnLogout);
@@ -115,25 +132,32 @@ public class MainView {
         btn.setMaxWidth(Double.MAX_VALUE);
         btn.setAlignment(Pos.CENTER_LEFT);
         applyNavStyle(btn, active);
-        btn.setOnMouseEntered(e -> { if (btn != activeNav) btn.setStyle(btn.getStyle().replace("transparent", App.CARD_HVR)); });
-        btn.setOnMouseExited(e  -> { if (btn != activeNav) applyNavStyle(btn, false); });
+        btn.setOnMouseEntered(e -> {
+            if (btn != activeNav)
+                btn.setStyle(btn.getStyle().replace("transparent", App.CARD_HVR));
+        });
+        btn.setOnMouseExited(e -> {
+            if (btn != activeNav)
+                applyNavStyle(btn, false);
+        });
         return btn;
     }
 
     private void applyNavStyle(Button btn, boolean active) {
         if (active) {
             btn.setStyle("-fx-background-color: " + App.ACCENT + "; -fx-text-fill: white; "
-                       + "-fx-font-size: 13; -fx-padding: 10 16; -fx-cursor: hand; "
-                       + "-fx-background-radius: 6;");
+                    + "-fx-font-size: 13; -fx-padding: 10 16; -fx-cursor: hand; "
+                    + "-fx-background-radius: 6;");
         } else {
             btn.setStyle("-fx-background-color: transparent; -fx-text-fill: " + App.TEXT + "; "
-                       + "-fx-font-size: 13; -fx-padding: 10 16; -fx-cursor: hand; "
-                       + "-fx-background-radius: 6;");
+                    + "-fx-font-size: 13; -fx-padding: 10 16; -fx-cursor: hand; "
+                    + "-fx-background-radius: 6;");
         }
     }
 
     private void setActive(Button btn) {
-        if (activeNav != null) applyNavStyle(activeNav, false);
+        if (activeNav != null)
+            applyNavStyle(activeNav, false);
         activeNav = btn;
         applyNavStyle(btn, true);
     }

@@ -19,7 +19,8 @@ public class UserRepository {
         try {
             File file = new File(DATA_FILE);
             if (file.exists()) {
-                users = mapper.readValue(file, new TypeReference<List<User>>() {});
+                users = mapper.readValue(file, new TypeReference<List<User>>() {
+                });
             } else {
                 System.out.println("Data file not found: " + DATA_FILE);
             }
@@ -76,33 +77,33 @@ public class UserRepository {
     }
 
     public void updateUserProgression(User user, int gameId, int level) {
-         user.updateProgression(gameId, level);
-         saveUsers();
+        user.updateProgression(gameId, level);
+        saveUsers();
     }
 
     public void updateUserPlaytime(User user, int gameId, double hours) {
-         user.updatePlaytime(gameId, hours);
-         saveUsers();
+        user.updatePlaytime(gameId, hours);
+        saveUsers();
     }
 
     public void addUserBalance(User user, double amount) {
-         user.addBalance(amount);
-         saveUsers();
+        user.addBalance(amount);
+        saveUsers();
     }
 
     public boolean deductUserBalance(User user, double amount) {
-         boolean deducted = user.deductBalance(amount);
-         if (deducted) {
-             saveUsers();
-         }
-         return deducted;
+        boolean deducted = user.deductBalance(amount);
+        if (deducted) {
+            saveUsers();
+        }
+        return deducted;
     }
 
     public boolean refundGame(User user, Game game) {
-         boolean refunded = user.refundGame(game);
-         if (refunded) {
-             saveUsers();
-         }
-         return refunded;
+        boolean refunded = user.refundGame(game);
+        if (refunded) {
+            saveUsers();
+        }
+        return refunded;
     }
 }

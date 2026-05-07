@@ -1,17 +1,23 @@
 package com.saumon.gui;
 
+import java.text.SimpleDateFormat;
+import java.util.List;
+
 import com.saumon.core.model.Game;
 import com.saumon.core.model.Studio;
 import com.saumon.core.model.User;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
-
-import java.text.SimpleDateFormat;
-import java.util.List;
 
 public class CatalogView {
 
@@ -63,8 +69,9 @@ public class CatalogView {
         card.setStyle("-fx-background-color: " + App.CARD + "; -fx-background-radius: 8;");
         card.setAlignment(Pos.CENTER_LEFT);
 
-        card.setOnMouseEntered(e -> card.setStyle("-fx-background-color: " + App.CARD_HVR + "; -fx-background-radius: 8;"));
-        card.setOnMouseExited(e  -> card.setStyle("-fx-background-color: " + App.CARD   + "; -fx-background-radius: 8;"));
+        card.setOnMouseEntered(
+                e -> card.setStyle("-fx-background-color: " + App.CARD_HVR + "; -fx-background-radius: 8;"));
+        card.setOnMouseExited(e -> card.setStyle("-fx-background-color: " + App.CARD + "; -fx-background-radius: 8;"));
 
         // ── Left: colored genre strip ──────────────────────────────────────────
         VBox colorBar = new VBox();
@@ -86,7 +93,7 @@ public class CatalogView {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
         String year = game.getReleaseDate() != null ? sdf.format(game.getReleaseDate()) : "?";
         String multi = Boolean.TRUE.equals(game.getIsMultiplayer()) ? "  •  Multijoueur" : "";
-        String sub   = Boolean.TRUE.equals(game.getSubscription())  ? "  •  Abonnement" : "";
+        String sub = Boolean.TRUE.equals(game.getSubscription()) ? "  •  Abonnement" : "";
 
         Label meta = new Label(studioName + "  •  " + year + multi + sub);
         meta.setStyle("-fx-text-fill: " + App.DIM + "; -fx-font-size: 12;");
@@ -97,7 +104,7 @@ public class CatalogView {
             for (String genre : game.getGenres()) {
                 Label badge = new Label(genre);
                 badge.setStyle("-fx-background-color: #1e3a52; -fx-text-fill: " + App.ACCENT
-                             + "; -fx-font-size: 11; -fx-padding: 2 8; -fx-background-radius: 10;");
+                        + "; -fx-font-size: 11; -fx-padding: 2 8; -fx-background-radius: 10;");
                 badges.getChildren().add(badge);
             }
         }
@@ -154,34 +161,34 @@ public class CatalogView {
     private void applyBuyStyle(Button btn, boolean owned) {
         if (owned) {
             btn.setStyle("-fx-background-color: " + App.OWNED_CLR + "; -fx-text-fill: " + App.DIM
-                       + "; -fx-font-size: 13; -fx-padding: 8 16; -fx-background-radius: 5; -fx-cursor: default;");
+                    + "; -fx-font-size: 13; -fx-padding: 8 16; -fx-background-radius: 5; -fx-cursor: default;");
             btn.setDisable(true);
         } else {
             String s = "-fx-background-color: " + App.BUY_CLR + "; -fx-text-fill: white; "
-                     + "-fx-font-size: 13; -fx-font-weight: bold; -fx-padding: 8 16; "
-                     + "-fx-background-radius: 5; -fx-cursor: hand;";
+                    + "-fx-font-size: 13; -fx-font-weight: bold; -fx-padding: 8 16; "
+                    + "-fx-background-radius: 5; -fx-cursor: hand;";
             btn.setStyle(s);
             btn.setOnMouseEntered(e -> btn.setStyle(s.replace(App.BUY_CLR, App.BUY_HVR)));
-            btn.setOnMouseExited(e  -> btn.setStyle(s));
+            btn.setOnMouseExited(e -> btn.setStyle(s));
         }
     }
 
     /** Returns a distinct color per primary genre */
     private String genreColor(List<String> genres) {
-        if (genres == null || genres.isEmpty()) return App.DIM;
+        if (genres == null || genres.isEmpty())
+            return App.DIM;
         return switch (genres.get(0).toLowerCase()) {
-            case "rpg"        -> "#c77e00";
-            case "action"     -> "#c03030";
-            case "adventure"  -> "#2e8b57";
+            case "rpg" -> "#c77e00";
+            case "action" -> "#c03030";
+            case "adventure" -> "#2e8b57";
             case "open world" -> "#1e7a6a";
-            case "fps"        -> "#8b2252";
-            case "strategy"   -> "#4a6fa5";
-            case "sports"     -> "#2277bb";
+            case "fps" -> "#8b2252";
+            case "strategy" -> "#4a6fa5";
+            case "sports" -> "#2277bb";
             case "simulation" -> "#7a5c2e";
-            case "horror"     -> "#4d1f5e";
-            case "racing"     -> "#c7600a";
-            default           -> App.ACCENT;
+            case "horror" -> "#4d1f5e";
+            case "racing" -> "#c7600a";
+            default -> App.ACCENT;
         };
     }
 }
-

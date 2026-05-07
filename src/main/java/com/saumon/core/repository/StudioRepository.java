@@ -19,7 +19,8 @@ public class StudioRepository {
         try {
             File file = new File(DATA_FILE);
             if (file.exists()) {
-                studios = mapper.readValue(file, new TypeReference<List<Studio>>(){});
+                studios = mapper.readValue(file, new TypeReference<List<Studio>>() {
+                });
             } else {
                 System.out.println("Data file not found: " + DATA_FILE);
             }
@@ -41,16 +42,16 @@ public class StudioRepository {
         return null;
     }
 
-    public List<Integer> getAllGamesID(Integer studioID){
+    public List<Integer> getAllGamesID(Integer studioID) {
         List<Integer> gamesIDs = new ArrayList<>();
         Studio studio = getStudioById(studioID);
-        if(studio != null){
+        if (studio != null) {
             gamesIDs = studio.getGamesID();
         }
         return gamesIDs;
     }
 
-    public int getStudioIDByStudioName(String studioName){
+    public int getStudioIDByStudioName(String studioName) {
         for (Studio studio : studios) {
             if (studio.getName().equalsIgnoreCase(studioName)) {
                 return studio.getId();
